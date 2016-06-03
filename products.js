@@ -1,7 +1,6 @@
 var fs = require('fs');
 
-var products = function(n) {
-
+exports.products = function(n) {
  var folderName = fs.readFileSync(n, 'utf-8');
     var gsub = folderName.replace(/R/g, " ").split('\n').splice([1])
 
@@ -23,7 +22,6 @@ var products = function(n) {
         }
         arr3.push(result);
     })
-    // console.log(arr3)
 
     var obj = {};
     for (var i = 0; i < arr3.length; i++) {
@@ -34,16 +32,7 @@ var products = function(n) {
         }
         //we can safely assume that ALL product name will be in my object.
         obj[arr3[i].productName] = obj[arr3[i].productName] + arr3[i].quantity;
-
-        // console.log(obj)
-        //console.log("-----------------------------")
-
     }
-    
 console.log(obj)    
 return obj
-
 }
-
-module.exports.products = products
-
