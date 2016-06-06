@@ -2,14 +2,14 @@ var fs = require('fs');
 
 exports.least = function(obj) {
     var min = 54;
-    var mostpop = {};
+    var leastpop = {};
 
     for (var prop in obj) {
 
         if (obj[prop] < min) {
             min = obj[prop];
 
-            mostpop = {
+            leastpop = {
 
                 amount: min,
                 item: prop
@@ -17,5 +17,5 @@ exports.least = function(obj) {
 
         }
     }
-    return mostpop
+    return leastpop
 }
