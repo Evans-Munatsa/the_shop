@@ -32,7 +32,6 @@ exports.products = function(n) {
         }
         //we can safely assume that ALL product name will be in my object.
         obj[arr3[i].productName] = obj[arr3[i].productName] + arr3[i].quantity;
-    }
-console.log(obj)    
+    }   
 return obj
 }
