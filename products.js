@@ -1,7 +1,7 @@
 var fs = require('fs');
 
 exports.products = function(n) {
- var folderName = fs.readFileSync(n, 'utf-8');
+    var folderName = fs.readFileSync(n, 'utf-8');
     var gsub = folderName.replace(/R/g, " ").split('\n').splice([1])
 
     var arr = []
@@ -32,6 +32,6 @@ exports.products = function(n) {
         }
         //we can safely assume that ALL product name will be in my object.
         obj[arr3[i].productName] = obj[arr3[i].productName] + arr3[i].quantity;
-    }   
-return obj
+    }
+    return obj
 }

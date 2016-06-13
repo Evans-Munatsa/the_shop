@@ -1,7 +1,7 @@
-var fs = require('fs')
+var fs = require('fs');
 
-exports.most = function(obj) {
-    var max = 0;
+exports.mostSoldCategory = function(obj) {
+	var max = 0;
     var mostpop = {};
 
     for (var prop in obj) {
@@ -10,9 +10,10 @@ exports.most = function(obj) {
 
             mostpop = {
                 amount: max,
-                item: prop
+                category: prop
             };
         }
     }
+    console.log(mostpop);
     return mostpop;
 }
