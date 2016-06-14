@@ -1,19 +1,19 @@
 var fs = require('fs');
 
-exports.mostSoldCategory = function(obj) {
+exports.mostSoldCategory = function(category) {
 	var max = 0;
-    var mostpop = {};
+    var mostSoldByCategory = {};
 
-    for (var prop in obj) {
-        if (obj[prop] > max) {
-            max = obj[prop];
+    for (var products in category) {
+        if (category[products] > max) {
+            max = category[products];
 
-            mostpop = {
+            mostSoldByCategory = {
                 amount: max,
-                category: prop
+                category: products
             };
         }
     }
-    console.log(mostpop);
-    return mostpop;
+    console.log(mostSoldByCategory);
+    return mostSoldByCategory;
 }

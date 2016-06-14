@@ -1,19 +1,19 @@
 var fs = require('fs');
 
-exports.least = function(obj) {
+exports.least = function(products) {
     var min = 54;
-    var leastpop = {};
+    var leastPopularProduct = {};
 
-    for (var prop in obj) {
-        if (obj[prop] < min) {
-            min = obj[prop];
+    for (var stock in products) {
+        if (products[stock] < min) {
+            min = products[stock];
 
-            leastpop = {
+            leastPopularProduct = {
 
                 amount: min,
-                item: prop
+                item: stock
             };
         }
     }
-    return leastpop
+    return leastPopularProduct
 }
