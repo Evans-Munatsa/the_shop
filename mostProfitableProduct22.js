@@ -1,7 +1,6 @@
-var fs = require('fs')
+var fs = require('fs');
 
-exports.products = function(grouped) {
-    var folderName = fs.readFileSync(grouped, 'utf-8');
+    var folderName = fs.readFileSync('./csv/week1.csv', 'utf-8');
     var gsub = folderName.replace(/R/g, " ").split('\n').splice([1])
 
     var arr = []
@@ -22,6 +21,7 @@ exports.products = function(grouped) {
         }
         arr3.push(result);
     })
+    // Day,Date,stock item,No sold,Sales Price
 
     var obj = {};
     for (var i = 0; i < arr3.length; i++) {
@@ -33,5 +33,4 @@ exports.products = function(grouped) {
         //we can safely assume that ALL product name will be in my object.
         obj[arr3[i].productName] = obj[arr3[i].productName] + arr3[i].price;
     }
-    return obj;
-}
+    console.log(obj);

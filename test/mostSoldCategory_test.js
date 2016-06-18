@@ -53,7 +53,7 @@ var week4 = {
     valentine: 0
 }
 
-describe('returns the most sold', function() {
+describe('returns the most popular category for each week', function() {
     it('returns for the first week', function() {
         var result = most.mostSoldCategory(week1)
         assert.deepEqual(result, {

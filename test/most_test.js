@@ -76,7 +76,7 @@ var week4 = {
     'Milk 1l': 43
 }
 
-describe('most popular', function() {
+describe('most popular product for each week', function() {
     it('week1 product', function() {
         var result = most_least.most(week1)
         assert.deepEqual(result, {

@@ -46,6 +46,6 @@ exports.categories_totals = function(products) {
             category.albany += products[i]
         }
     }
-    console.log(category);
+    // console.log(category);
     return category;
 }

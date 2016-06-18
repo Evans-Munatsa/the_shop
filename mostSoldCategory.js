@@ -14,6 +14,6 @@ exports.mostSoldCategory = function(category) {
             };
         }
     }
-    console.log(mostSoldByCategory);
+    // console.log(mostSoldByCategory);
     return mostSoldByCategory;
 }

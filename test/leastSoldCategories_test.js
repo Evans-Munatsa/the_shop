@@ -45,7 +45,7 @@ var week4 = {
     gifts: 40
 }
 
-describe('returns the most sold', function() {
+describe('returns the the least popular category for each week', function() {
     it('returns for the first week', function() {
         var result = least.leastSoldCategory(week1)
         assert.deepEqual(result, {

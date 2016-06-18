@@ -76,7 +76,7 @@ var week4 = {
     'Milk 1l': 43
 }
 
-describe('sum up categories', function() {
+describe('sum up categories for each week', function() {
     it('returns for week1', function() {
         var result = totals.categories_totals(week1);
         assert.deepEqual(result, {

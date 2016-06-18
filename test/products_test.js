@@ -5,7 +5,7 @@ var csv2 = '../csv/week2.csv';
 var csv3 = '../csv/week3.csv';
 var csv3 = '../csv/week4.csv';
 
-describe('group data', function() {
+describe('group the data for the weekly sales', function() {
     it('returns week1', function() {
         var result = products.products('./csv/week1.csv')
         assert.deepEqual({

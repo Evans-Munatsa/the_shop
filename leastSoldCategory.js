@@ -15,6 +15,6 @@ exports.leastSoldCategory = function(category){
             };
         }
     }
-    console.log(leastSoldByCategory)
+    // console.log(leastSoldByCategory)
     return leastSoldByCategory
 }
