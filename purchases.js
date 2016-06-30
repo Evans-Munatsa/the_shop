@@ -29,13 +29,27 @@ exports.purchases_json = function(array) {
     return purchaseList;
 }
 
-exports.groupedPurchase = function(purchaseInput) {
-    var groupedPurchases = {};
-    for (var values = 0; values < purchaseInput.length; values++) {
-        if (!groupedPurchases.hasOwnProperty(purchaseInput[values].Item)) {
-            groupedPurchases[purchaseInput[values].Item] = 0;
+
+exports.groupedPurchase = function(purchaseDates) {
+    var getDates = {};
+    for (data = 0; data < purchaseDates.length; data++) {
+        if (!getDates.hasOwnProperty(purchaseDates[data].Day)) {
+            if (new Date(purchaseDates[data].Day) > new Date('01-Feb-2016') && new Date(purchaseDates[data].Day) < new Date('08-Feb-2016')) {
+                if (!getDates.hasOwnProperty(purchaseDates[data].Item)) {
+                    getDates[purchaseDates[data].Item] = 0;
+                }
+                getDates[purchaseDates[data].Item] = getDates[purchaseDates[data].Item] + purchaseDates[data].TotalCost;
+            }
         }
-        groupedPurchases[purchaseInput[values].Item] = groupedPurchases[purchaseInput[values].Item] + purchaseInput[values].TotalCost;
     }
-    return groupedPurchases;
+    return getDates
+}
+
+exports.profit = function(a, b){
+  var max = 0;
+  var mostProfitableProduct = {};
+
+  for(x in a){
+    console.log(b[x])
+  }
 }
