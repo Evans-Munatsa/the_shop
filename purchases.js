@@ -30,26 +30,69 @@ exports.purchases_json = function(array) {
 }
 
 
-exports.groupedPurchase = function(purchaseDates) {
-    var getDates = {};
-    for (data = 0; data < purchaseDates.length; data++) {
-        if (!getDates.hasOwnProperty(purchaseDates[data].Day)) {
-            if (new Date(purchaseDates[data].Day) > new Date('01-Feb-2016') && new Date(purchaseDates[data].Day) < new Date('08-Feb-2016')) {
-                if (!getDates.hasOwnProperty(purchaseDates[data].Item)) {
-                    getDates[purchaseDates[data].Item] = 0;
-                }
-                getDates[purchaseDates[data].Item] = getDates[purchaseDates[data].Item] + purchaseDates[data].TotalCost;
+// exports.groupedPurchase = function(purchaseDates) {
+//     var getDates = {};
+//     for (data = 0; data < purchaseDates.length; data++) {
+//         if (!getDates.hasOwnProperty(purchaseDates[data].Day)) {
+//             if (new Date(purchaseDates[data].Day) > new Date('01-Feb-2016') && new Date(purchaseDates[data].Day) < new Date('08-Feb-2016')) {
+//                 if (!getDates.hasOwnProperty(purchaseDates[data].Item)) {
+//                     getDates[purchaseDates[data].Item] = 0;
+//                 }
+//                 getDates[purchaseDates[data].Item] = getDates[purchaseDates[data].Item] + purchaseDates[data].TotalCost;
+//             }
+//         }
+//     }
+//     return getDates
+// }
+
+
+exports.groupedPurchase = function(purchasesList, initialDate, lastDate) {
+
+    var getWeek = {};
+
+    var startDate = new Date(initialDate);
+    var endDate = new Date(lastDate);
+
+    for (var i = 0; i < purchasesList.length; i++) {
+        var date = new Date(purchasesList[i].Day);
+
+        if (date >= startDate && date <= endDate) {
+            if (!getWeek.hasOwnProperty(purchasesList[i].Item)) {
+                getWeek[purchasesList[i].Item] = 0;
             }
+            getWeek[purchasesList[i].Item] += purchasesList[i].TotalCost;
         }
     }
-    return getDates
+    return getWeek;
 }
 
-exports.profit = function(a, b){
-  var max = 0;
-  var mostProfitableProduct = {};
+exports.profit = function(weekCosts, weekSales) {
+    var profit = {};
 
-  for(x in a){
-    console.log(b[x])
-  }
+    for (x in weekCosts) {
+        for (i in weekSales) {
+            if (x === i) {
+                profit[x] = weekSales[i] - weekCosts[x]
+            }
+        }
+
+    }
+    return profit
+}
+
+exports.profitableProduct = function(profits){
+    var max = 0;
+    var mostPopularProduct = {};
+
+    for (var stock in profits) {
+        if (profits[stock] > max) {
+            max = profits[stock];
+
+            mostPopularProduct = {
+                profitCash: max,
+                item: stock
+            };
+        }
+    }
+    return mostPopularProduct;
 }

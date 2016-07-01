@@ -15,7 +15,10 @@ describe('Finding the most profitable', function() {
 
 
     it('returns the grouped totalCost of products for each week based on dates', function() {
-        weekdates = [{
+        var start = ('02-Feb-2016');
+        var end = ('06-Feb-2016');
+
+        var weekdates = [{
             Day: '23-Jan-2016',
             Item: 'Chakalaka Can',
             Quantity: 3,
@@ -50,15 +53,17 @@ describe('Finding the most profitable', function() {
             Item: 'Fanta 500ml',
             Quantity: 2,
             TotalCost: 20
-        }]
+        }];
 
-        assert.deepEqual(purchases.groupedPurchase(weekdates), {
+        var result = {
             'Coke 500ml': 31.5,
             'Fanta 500ml': 24.5
-        })
+        };
+
+        assert.deepEqual(result, purchases.groupedPurchase(weekdates, start, end));
     })
 
-    it('calculates the profit', function() {
+    it('calculates the profit of all products', function() {
         weekCosts = {
             'Coke 500ml': 31.5,
             'Fanta 500ml': 24.5
@@ -70,7 +75,21 @@ describe('Finding the most profitable', function() {
         }
 
         assert.deepEqual(purchases.profit(weekCosts, weekSales), {
-            'Coke 500ml': 8.5
+            'Coke 500ml': 8.5,
+            'Fanta 500ml': 6
         })
+    })
+
+    it('returns the most profitable product', function() {
+        profits = {
+            'Coke 500ml': 8.5,
+            'Fanta 500ml': 6
+        }
+
+
+        assert.deepEqual(purchases.profitableProduct(profits), {
+        "item": "Coke 500ml",
+        "profitCash": 8.5
+       })
     })
 })
