@@ -1,37 +1,98 @@
-var fs = require('fs')
+var fs = require('fs');
 
-exports.products = function(grouped) {
-    var folderName = fs.readFileSync(grouped, 'utf-8');
-    var gsub = folderName.replace(/R/g, " ").split('\n').splice([1])
+exports.purchases_array_of_array = function(n) {
+    var folderName = fs.readFileSync(n, 'utf-8')
+    var gsub = folderName.replace(/R/g, "").split('\n').splice([1])
 
     var arr = []
     for (i = 0; i < gsub.length - 1; i++) {
-        arr.push(gsub[i].split(","))
+        arr.push(gsub[i].replace(/,/g, '.').split(";"))
     }
+    return arr
+}
 
-    var arr2 = []
-    var arr3 = []
+exports.purchases_json = function(array) {
+    var purchasesArrays = [];
+    var purchaseList = [];
 
-    arr.forEach(function(x) {
-        arr2.push([x[0], x[1], x[2], Number(x[3], Number(x[4]))])
+    array.forEach(function(values) {
+        purchasesArrays.push([values[1], values[2], Number(values[3], Number(values[5]))])
 
         var result = {
-            productName: x[2],
-            quantity: Number(x[3]),
-            price: Number(x[4])
+            Day: values[1] + '-2016',
+            Item: values[2],
+            Quantity: Number(values[3]),
+            TotalCost: Number(values[5])
         }
-        arr3.push(result);
+        purchaseList.push(result);
     })
+    return purchaseList;
+}
 
-    var obj = {};
-    for (var i = 0; i < arr3.length; i++) {
-        //check if the product name is not in my MAP/OBJECT
-        if (!obj.hasOwnProperty(arr3[i].productName)) {
-            //put the product name in the Object    
-            obj[arr3[i].productName] = 0;
+
+// exports.groupedPurchase = function(purchaseDates) {
+//     var getDates = {};
+//     for (data = 0; data < purchaseDates.length; data++) {
+//         if (!getDates.hasOwnProperty(purchaseDates[data].Day)) {
+//             if (new Date(purchaseDates[data].Day) > new Date('01-Feb-2016') && new Date(purchaseDates[data].Day) < new Date('08-Feb-2016')) {
+//                 if (!getDates.hasOwnProperty(purchaseDates[data].Item)) {
+//                     getDates[purchaseDates[data].Item] = 0;
+//                 }
+//                 getDates[purchaseDates[data].Item] = getDates[purchaseDates[data].Item] + purchaseDates[data].TotalCost;
+//             }
+//         }
+//     }
+//     return getDates
+// }
+
+
+exports.groupedPurchase = function(purchasesList, initialDate, lastDate) {
+
+    var getWeek = {};
+
+    var startDate = new Date(initialDate);
+    var endDate = new Date(lastDate);
+
+    for (var i = 0; i < purchasesList.length; i++) {
+        var date = new Date(purchasesList[i].Day);
+
+        if (date >= startDate && date <= endDate) {
+            if (!getWeek.hasOwnProperty(purchasesList[i].Item)) {
+                getWeek[purchasesList[i].Item] = 0;
+            }
+            getWeek[purchasesList[i].Item] += purchasesList[i].TotalCost;
         }
-        //we can safely assume that ALL product name will be in my object.
-        obj[arr3[i].productName] = obj[arr3[i].productName] + arr3[i].price;
     }
-    return obj;
+    return getWeek;
+}
+
+exports.profit = function(weekCosts, weekSales) {
+    var profit = {};
+
+    for (x in weekCosts) {
+        for (i in weekSales) {
+            if (x === i) {
+                profit[x] = weekSales[i] - weekCosts[x]
+            }
+        }
+
+    }
+    return profit
+}
+
+exports.profitableProduct = function(profits){
+    var max = 0;
+    var mostProfitableProduct = {};
+
+    for (var stock in profits) {
+        if (profits[stock] > max) {
+            max = profits[stock];
+
+            mostProfitableProduct = {
+                profitCash: max,
+                item: stock
+            };
+        }
+    }
+    return mostProfitableProduct;
 }
