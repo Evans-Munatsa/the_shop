@@ -82,17 +82,17 @@ exports.profit = function(weekCosts, weekSales) {
 
 exports.profitableProduct = function(profits){
     var max = 0;
-    var mostPopularProduct = {};
+    var mostProfitableProduct = {};
 
     for (var stock in profits) {
         if (profits[stock] > max) {
             max = profits[stock];
 
-            mostPopularProduct = {
+            mostProfitableProduct = {
                 profitCash: max,
                 item: stock
             };
         }
     }
-    return mostPopularProduct;
+    return mostProfitableProduct;
 }
