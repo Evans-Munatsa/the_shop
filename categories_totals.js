@@ -1,5 +1,4 @@
 var fs = require('fs');
-var category = require('./category')
 
 exports.categories_totals = function(products) {
 	var category = { 
