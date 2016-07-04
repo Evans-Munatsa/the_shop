@@ -29,23 +29,6 @@ exports.purchases_json = function(array) {
     return purchaseList;
 }
 
-
-// exports.groupedPurchase = function(purchaseDates) {
-//     var getDates = {};
-//     for (data = 0; data < purchaseDates.length; data++) {
-//         if (!getDates.hasOwnProperty(purchaseDates[data].Day)) {
-//             if (new Date(purchaseDates[data].Day) > new Date('01-Feb-2016') && new Date(purchaseDates[data].Day) < new Date('08-Feb-2016')) {
-//                 if (!getDates.hasOwnProperty(purchaseDates[data].Item)) {
-//                     getDates[purchaseDates[data].Item] = 0;
-//                 }
-//                 getDates[purchaseDates[data].Item] = getDates[purchaseDates[data].Item] + purchaseDates[data].TotalCost;
-//             }
-//         }
-//     }
-//     return getDates
-// }
-
-
 exports.groupedPurchase = function(purchasesList, initialDate, lastDate) {
 
     var getWeek = {};
