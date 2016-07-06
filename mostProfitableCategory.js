@@ -27,3 +27,34 @@ exports.categoriesValues = function(category, products) {
     }
     return obj;
 }
+
+exports.categoriesProfits = function(purchasesCat, salesCat) {
+    var profit = {};
+
+    for (x in purchasesCat) {
+        for (i in salesCat) {
+            if (x === i) {
+                profit[x] = salesCat[i] - purchasesCat[x]
+            }
+        }
+
+    }
+    return profit
+}
+
+exports.profitableCat = function(profits) {
+    var max = 0;
+    var mostProfitableCategory = {};
+
+    for (var cat in profits) {
+        if (profits[cat] > max) {
+            max = profits[cat];
+
+            mostProfitableCategory = {
+                profitCash: max,
+                category: cat
+            };
+        }
+    }
+    return mostProfitableCategory;
+}

@@ -66,15 +66,73 @@ describe('creates categories', function() {
         }
 
         var result = {
-            "albany": 45,
-            "beverages": 109,
-            "canned": 39,
-            "dairy": 39,
-            "fruits": 83,
-            "mealies": 47,
-            "soaps": 15,
-            "gifts": 49
+            albany: 45,
+            beverages: 109,
+            canned: 39,
+            dairy: 39,
+            fruits: 83,
+            mealies: 47,
+            soaps: 15,
+            gifts: 49
         }
         assert.deepEqual(result, categories.categoriesValues(category, week1))
+    })
+
+    it('returns profits of categories', function() {
+        var purchasesCat = {
+            albany: 45,
+            beverages: 109,
+            canned: 39,
+            dairy: 39,
+            fruits: 83,
+            mealies: 47,
+            soaps: 15,
+            gifts: 49
+        }
+
+        var salesCat = {
+            albany: 24,
+            beverages: 44,
+            canned: 20,
+            dairy: 28,
+            fruits: 42,
+            mealies: 29,
+            soaps: 12,
+            gifts: 29
+        }
+
+        var result = {
+            albany: 21,
+            beverages: 65,
+            canned: 19,
+            dairy: 11,
+            fruits: 41,
+            gifts: 20,
+            mealies: 18,
+            soaps: 3
+        }
+
+        assert.deepEqual(result, categories.categoriesProfits(salesCat, purchasesCat))
+    })
+
+    it('returns the biggest profit', function() {
+        var profits = {
+            albany: 21,
+            beverages: 65,
+            canned: 19,
+            dairy: 11,
+            fruits: 41,
+            gifts: 20,
+            mealies: 18,
+            soaps: 3
+        }
+
+        var result = {
+            category: "beverages",
+            profitCash: 65
+        }
+
+        assert.deepEqual(result, categories.profitableCat(profits))
+
     })
 })

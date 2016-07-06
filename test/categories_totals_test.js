@@ -1,6 +1,26 @@
 var assert = require('assert');
 var totals = require('../categories_totals');
 
+var category = {
+    'Heart Chocolates': 'gifts',
+    'Gold Dish Vegetable Curry Can': 'canned',
+    'Top Class Soy Mince': 'canned',
+    'Fanta 500ml': 'beverages',
+    'Coke 500ml': 'beverages',
+    'Cream Soda 500ml': 'beverages',
+    'Shampoo 1 litre': 'soaps',
+    'Soap Bar': 'soaps',
+    'Apples - loose': 'fruits',
+    'Bananas - loose': 'fruits',
+    'Valentine Cards': 'gifts',
+    'Milk 1l': 'dairy',
+    'Bread': 'albany',
+    'Iwisa Pap 5kg': 'mealies',
+    'Imasi': 'mealies',
+    'Mixed Sweets 5s': 'gifts',
+    'Rose (plastic)': 'gifts'
+}
+
 var week1 = {
     'Milk 1l': 39,
     'Imasi': 30,
@@ -78,58 +98,61 @@ var week4 = {
 
 describe('sum up categories for each week', function() {
     it('returns for week1', function() {
-        var result = totals.categories_totals(week1);
-        assert.deepEqual(result, {
+
+        var first = {
             albany: 45,
             beverages: 109,
-            canned: 62,
+            canned: 39,
             dairy: 39,
             fruits: 83,
             mealies: 47,
             soaps: 15,
             gifts: 49
-        })
+        }
+
+        assert.deepEqual(first, totals.categories_totals(category, week1))
     })
 
     it('returns for week2', function() {
-        var result = totals.categories_totals(week2);
-        assert.deepEqual(result, {
+
+        var second = {
             albany: 28,
             beverages: 87,
-            canned: 69,
+            canned: 48,
             dairy: 28,
             fruits: 49,
             mealies: 46,
             soaps: 11,
             gifts: 102
-        })
+        }
+        assert.deepEqual(second, totals.categories_totals(category, week2))
     })
 
     it('returns for week3', function() {
-        var result = totals.categories_totals(week3);
-        assert.deepEqual(result, {
+        var third = {
             albany: 24,
             beverages: 44,
-            canned: 37,
+            canned: 20,
             dairy: 28,
             fruits: 42,
             mealies: 29,
             soaps: 12,
             gifts: 29
-        })
+        }
+        assert.deepEqual(third, totals.categories_totals(category, week3))
     })
 
     it('returns for week4', function() {
-        var result = totals.categories_totals(week4);
-        assert.deepEqual(result, {
+        var fourth = {
             albany: 33,
             beverages: 88,
-            canned: 110,
+            canned: 77,
             dairy: 43,
             fruits: 54,
             mealies: 50,
             soaps: 38,
             gifts: 40
-        })
+        }
+        assert.deepEqual(fourth, totals.categories_totals(category, week4))
     })
 })
