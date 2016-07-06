@@ -88,8 +88,8 @@ describe('Finding the most profitable', function() {
 
 
         assert.deepEqual(purchases.profitableProduct(profits), {
-        "item": "Coke 500ml",
-        "profitCash": 8.5
-       })
+            "item": "Coke 500ml",
+            "profitCash": 8.5
+        })
     })
 })
