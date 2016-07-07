@@ -1,31 +1,35 @@
 var fs = require('fs');
 
-exports.categoriesMap = function(category) {
-    var category = fs.readFileSync(category, 'utf-8');
-    var cuts = category.split('\n');
+exports.categoriesMap = function(categories_csv) {
+    var categories = fs.readFileSync(categories_csv, 'utf-8');
+    var splittingData = categories.split('\n');
 
-    var arr = {}
-    for (i = 0; i < cuts.length; i++) {
-        cuts[i] = cuts[i].split(",");
-        arr[cuts[i][0]] = cuts[i][1];
+    var categoriesObject = {}
+    for (values = 0; values < splittingData.length; values++) {
+        splittingData[values] = splittingData[values].split(",");
+        categoriesObject[splittingData[values][0]] = splittingData[values][1];
     }
-    return arr
+    return categoriesObject
 }
 
 exports.categoriesValues = function(category, products) {
-    var obj = {};
-    for (goods in category) {
-        for (food in products) {
-            // console.log(food)
-            if (goods === food) {
-                if (!obj.hasOwnProperty(category[goods])) {
-                    obj[category[goods]] = 0
-                }
-                obj[category[goods]] += products[food]
-            }
+    var results = {}
+
+    for (productName in category) {
+        var categoryName = category[productName];
+        if (results[categoryName] === undefined) {
+            results[categoryName] = 0
         }
+
+        var price = products[productName];
+
+        if (price === undefined) {
+            price = 0;
+        }
+
+        results[categoryName] += price;
     }
-    return obj;
+    return results;
 }
 
 exports.categoriesProfits = function(purchasesCat, salesCat) {

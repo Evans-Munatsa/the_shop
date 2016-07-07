@@ -1,4 +1,5 @@
-var object = {
+var cat = {
+    'Heart Chocolates': 'Sweets',
     'Gold Dish Vegetable Curry Can': 'canned',
     'Top Class Soy Mince': 'canned',
     'Fanta 500ml': 'beverages',
@@ -8,12 +9,14 @@ var object = {
     'Soap Bar': 'soaps',
     'Apples - loose': 'fruits',
     'Bananas - loose': 'fruits',
-    'Mixed Sweets 5s': 'sweets',
+    'Valentine Cards': 'Valentine',
     'Milk 1l': 'dairy',
     'Bread': 'albany',
     'Iwisa Pap 5kg': 'mealies',
-    'Imasi': 'mealies'
-};
+    'Imasi': 'mealies',
+    'Mixed Sweets 5s': 'Sweets',
+    'Rose (plastic)': 'Valentine'
+}
 
 var product = {
     'Milk 1l': 39,
@@ -30,19 +33,26 @@ var product = {
     'Soap Bar': 12,
     'Bananas - loose': 47,
     'Apples - loose': 36,
-    'Mixed Sweets 5s': 49
+    'Mixed Sweets 5s': 49,
+    'Rose (plastic)': 10,
+    // 'Valentine Cards': 5
 }
 
-results = {}
+var results = {}
 
-for (x in object) {
-    var category = object[x]
-
-    if (results[category] === undefined) {
-        results[category] = 0
+for (productName in cat) {
+    var categoryName = cat[productName];
+    if (results[categoryName] === undefined) {
+        results[categoryName] = 0
     }
-    results[category] = results[category] + product[x]
-}
 
+    var qty = product[productName];
+
+    if (qty === undefined) {
+        qty = 0;
+    }
+
+    results[categoryName] += qty;
+}
 
 console.log(results);
