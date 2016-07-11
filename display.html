@@ -1,0 +1,16 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>Hello handlebars</title>
+		<script src="handlebars-v4.0.5.js"></script>
+	</head>
+	<body>
+		<div id=evans></div>
+	</body>
+	<script type="text/javascript">
+		var myInfo = "<p>My name is {{name}} and l live in {{place}}</p>";
+		var template = Handlebars.compile(myInfo);
+		var data = template({name: 'Evans', place: 'Kensington'});
+		document.getElementById('evans').innerHTML += data
+	</script>
+</html>
