@@ -1,7 +1,7 @@
 var fs = require('fs');
 
-exports.products = function(n) {
-    var folderName = fs.readFileSync(n, 'utf-8');
+exports.weeklyProducts = function(filePath) {
+    var folderName = fs.readFileSync(filePath, 'utf-8');
     var gsub = folderName.replace(/R/g, " ").split('\n').splice([1])
 
     var arr = []

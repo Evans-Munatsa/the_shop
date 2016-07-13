@@ -7,7 +7,7 @@ var csv3 = '../csv/week4.csv';
 
 describe('group the data for the weekly sales', function() {
     it('returns week1', function() {
-        var result = products.products('./csv/week1.csv')
+        var result = products.weeklyProducts('./csv/week1.csv')
         assert.deepEqual({
             'Milk 1l': 39,
             'Imasi': 30,
@@ -28,7 +28,7 @@ describe('group the data for the weekly sales', function() {
     })
 
     it('returns week2', function() {
-        var result = products.products('./csv/week2.csv')
+        var result = products.weeklyProducts('./csv/week2.csv')
         assert.deepEqual({
             'Imasi': 36,
             'Bread': 28,
@@ -52,7 +52,7 @@ describe('group the data for the weekly sales', function() {
     })
 
     it('returns week3', function() {
-        var result = products.products('./csv/week3.csv')
+        var result = products.weeklyProducts('./csv/week3.csv')
         assert.deepEqual({
             'Imasi': 25,
             'Bread': 24,
@@ -73,7 +73,7 @@ describe('group the data for the weekly sales', function() {
     })
 
     it('returns week4', function() {
-        var result = products.products('./csv/week4.csv')
+        var result = products.weeklyProducts('./csv/week4.csv')
         assert.deepEqual({
             'Imasi': 34,
             'Bread': 33,

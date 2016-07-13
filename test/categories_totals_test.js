@@ -1,5 +1,31 @@
 var assert = require('assert');
 var totals = require('../categories_totals');
+var cats = './csv/categories.csv'
+
+describe('creates categories', function() {
+    it('return categories and their product maps', function() {
+        var result = totals.categoriesMap(cats)
+        assert.deepEqual({
+            'Heart Chocolates': 'gifts',
+            'Gold Dish Vegetable Curry Can': 'canned',
+            'Top Class Soy Mince': 'canned',
+            'Fanta 500ml': 'beverages',
+            'Coke 500ml': 'beverages',
+            'Cream Soda 500ml': 'beverages',
+            'Shampoo 1 litre': 'soaps',
+            'Soap Bar': 'soaps',
+            'Apples - loose': 'fruits',
+            'Bananas - loose': 'fruits',
+            'Valentine Cards': 'gifts',
+            'Milk 1l': 'dairy',
+            'Bread': 'albany',
+            'Iwisa Pap 5kg': 'mealies',
+            'Imasi': 'mealies',
+            'Mixed Sweets 5s': 'gifts',
+            'Rose (plastic)': 'gifts'
+        }, result)
+    })
+})
 
 var category = {
     'Heart Chocolates': 'gifts',
@@ -110,7 +136,7 @@ describe('sum up categories for each week', function() {
             gifts: 49
         }
 
-        assert.deepEqual(first, totals.categories_totals(category, week1))
+        assert.deepEqual(first, totals.categories_total(category, week1))
     })
 
     it('returns for week2', function() {
@@ -125,7 +151,7 @@ describe('sum up categories for each week', function() {
             soaps: 11,
             gifts: 102
         }
-        assert.deepEqual(second, totals.categories_totals(category, week2))
+        assert.deepEqual(second, totals.categories_total(category, week2))
     })
 
     it('returns for week3', function() {
@@ -139,7 +165,7 @@ describe('sum up categories for each week', function() {
             soaps: 12,
             gifts: 29
         }
-        assert.deepEqual(third, totals.categories_totals(category, week3))
+        assert.deepEqual(third, totals.categories_total(category, week3))
     })
 
     it('returns for week4', function() {
@@ -153,6 +179,6 @@ describe('sum up categories for each week', function() {
             soaps: 38,
             gifts: 40
         }
-        assert.deepEqual(fourth, totals.categories_totals(category, week4))
+        assert.deepEqual(fourth, totals.categories_total(category, week4))
     })
 })
