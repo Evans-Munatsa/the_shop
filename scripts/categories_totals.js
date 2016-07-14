@@ -1,4 +1,5 @@
 var fs = require('fs');
+
 exports.categoriesMap = function(categories_csv) {
     var categories = fs.readFileSync(categories_csv, 'utf-8');
     var splittingData = categories.split('\n');
@@ -12,7 +13,7 @@ exports.categoriesMap = function(categories_csv) {
 }
 
 exports.categories_total = function(category, products) {
-	var obj = {};
+    var obj = {};
     for (goods in category) {
         for (food in products) {
             if (goods === food) {

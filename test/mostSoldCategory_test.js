@@ -1,5 +1,5 @@
 var assert = require('assert');
-var most = require('../mostSoldCategory');
+var most = require('../scripts/mostSoldCategory');
 
 var week1 = {
     canned: 62,

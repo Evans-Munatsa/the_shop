@@ -1,5 +1,5 @@
 var assert = require('assert');
-var least = require('../least');
+var least = require('../scripts/least');
 
 var week1 = {
     'Milk 1l': 39,

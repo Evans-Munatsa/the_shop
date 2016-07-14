@@ -21,25 +21,25 @@ var weekDisplay1 = weeklySales.weeklyProducts(csv1);
 var categoryWeekDisplay1 = category.categories_total(cat, weekDisplay1)
 var lowest1 = leastPopularProduct.least(weekDisplay1)
 var mostPopular1 = mostPopularProduct.most(weekDisplay1);
-var mostPopCat = mostSoldCategory.mostSoldCategory(categoryWeekDisplay1)
-console.log(mostPopCat)
+var mostPopCat1 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay1)
 
 //gets files from csv and process everything into an object of week two
 var weekDisplay2 = weeklySales.weeklyProducts(csv2);
+var categoryWeekDisplay2 = category.categories_total(cat, weekDisplay2)
 var lowest2 = leastPopularProduct.least(weekDisplay2)
 var mostPopular2 = mostPopularProduct.most(weekDisplay2);
+var mostPopCat2 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay2)
 
 //gets files from csv and process everything into an object of week three
 var weekDisplay3 = weeklySales.weeklyProducts(csv3);
+var categoryWeekDisplay3 = category.categories_total(cat, weekDisplay3)
 var lowest3 = leastPopularProduct.least(weekDisplay3)
 var mostPopular3 = mostPopularProduct.most(weekDisplay3);
+var mostPopCat3 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay3)
 
 //gets files from csv and process everything into an object of week four
 var weekDisplay4 = weeklySales.weeklyProducts(csv4);
+var categoryWeekDisplay4 = category.categories_total(cat, weekDisplay4)
 var lowest4 = leastPopularProduct.least(weekDisplay4)
 var mostPopular4 = mostPopularProduct.most(weekDisplay4);
-
-
-
-
-
+var mostPopCat4 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay4)

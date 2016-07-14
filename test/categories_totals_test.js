@@ -1,5 +1,5 @@
 var assert = require('assert');
-var totals = require('../categories_totals');
+var totals = require('../scripts/categories_totals');
 var cats = './csv/categories.csv'
 
 describe('creates categories', function() {

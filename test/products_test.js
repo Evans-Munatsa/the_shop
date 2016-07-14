@@ -1,5 +1,5 @@
 var assert = require('assert');
-var products = require('../products')
+var products = require('../scripts/products')
 var csv = '../csv/week1.csv';
 var csv2 = '../csv/week2.csv';
 var csv3 = '../csv/week3.csv';
