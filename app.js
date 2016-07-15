@@ -55,4 +55,4 @@ var source = fs.readFileSync('week1.handlebars', 'utf-8')
 	var data = template(data);
 
 
- fs.writeFile('views/week1Statitics.html', data);
+ fs.writeFile('views/week1Statistics.html', data);
