@@ -6,8 +6,20 @@
 	</head>
 	<body>
 		<ul>
-          {{#each productsProp}}
-		    <p>my most popular product  {{item}}, {{amount}}</p>
+          {{#each mostPop}}
+		    <p>my most popular product:  {{item}}, {{amount}}</p>
+		  {{/each}}
+
+		  {{#each leastPop}}
+		    <p>my least popular product:  {{item}}, {{amount}}</p>
+		  {{/each}}
+
+		  {{#each mostPopCat}}
+		  <p> my most popular product: {{category}}, {{amount}}</p>
+		  {{/each}}
+
+		  {{#each leastPopCat}}
+		  <p> my least popular product: {{category}}, {{amount}}</p>
 		  {{/each}}
 
 		</ul>

@@ -23,7 +23,7 @@ var categoryWeekDisplay1 = category.categories_total(cat, weekDisplay1)
 var lowest1 = leastPopularProduct.least(weekDisplay1)
 var mostPopular1 = mostPopularProduct.most(weekDisplay1);
 var mostPopCat1 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay1)
-
+var leastPopCat1 = leastSoldCategory.leastSoldCategory(categoryWeekDisplay1)
 
 //gets files from csv and process everything into an object of week two
 var weekDisplay2 = weeklySales.weeklyProducts(csv2);
@@ -46,13 +46,19 @@ var lowest4 = leastPopularProduct.least(weekDisplay4)
 var mostPopular4 = mostPopularProduct.most(weekDisplay4);
 var mostPopCat4 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay4)
 
-	var data = {
-	"productsProp":[ mostPopular1 , lowest1]}
+
+//handlebars template generators
+var data = {
+    "mostPop": [mostPopular1],
+    "leastPop": [lowest1],
+    "mostPopCat": [mostPopCat1],
+    "leastPopCat": [leastPopCat1]
+}
 
 var source = fs.readFileSync('week1.handlebars', 'utf-8')
-		
-	var template = Handlebars.compile(source);
-	var data = template(data);
+
+var template = Handlebars.compile(source);
+var data = template(data);
 
 
- fs.writeFile('views/week1Statistics.html', data);
+fs.writeFile('views/week1Statistics.html', data);
