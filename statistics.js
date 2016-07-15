@@ -31,6 +31,7 @@ var categoryWeekDisplay2 = category.categories_total(cat, weekDisplay2)
 var lowest2 = leastPopularProduct.least(weekDisplay2)
 var mostPopular2 = mostPopularProduct.most(weekDisplay2);
 var mostPopCat2 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay2)
+var leastPopCat2 = leastSoldCategory.leastSoldCategory(categoryWeekDisplay2)
 
 //gets files from csv and process everything into an object of week three
 var weekDisplay3 = weeklySales.weeklyProducts(csv3);
@@ -38,6 +39,7 @@ var categoryWeekDisplay3 = category.categories_total(cat, weekDisplay3)
 var lowest3 = leastPopularProduct.least(weekDisplay3)
 var mostPopular3 = mostPopularProduct.most(weekDisplay3);
 var mostPopCat3 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay3)
+var leastPopCat3 = leastSoldCategory.leastSoldCategory(categoryWeekDisplay3)
 
 //gets files from csv and process everything into an object of week four
 var weekDisplay4 = weeklySales.weeklyProducts(csv4);
@@ -45,9 +47,10 @@ var categoryWeekDisplay4 = category.categories_total(cat, weekDisplay4)
 var lowest4 = leastPopularProduct.least(weekDisplay4)
 var mostPopular4 = mostPopularProduct.most(weekDisplay4);
 var mostPopCat4 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay4)
+var leastPopCat4 = leastSoldCategory.leastSoldCategory(categoryWeekDisplay4)
 
 
-//handlebars template generators
+//handlebars template generators week1
 var data = {
     "mostPop": [mostPopular1],
     "leastPop": [lowest1],
@@ -62,3 +65,52 @@ var data = template(data);
 
 
 fs.writeFile('views/week1Statistics.html', data);
+
+
+//handlebars template generators week2
+var data2 = {
+    "mostPop": [mostPopular2],
+    "leastPop": [lowest2],
+    "mostPopCat": [mostPopCat2],
+    "leastPopCat": [leastPopCat2]
+}
+
+var source = fs.readFileSync('week2.handlebars', 'utf-8')
+
+var template = Handlebars.compile(source);
+var data2 = template(data2);
+
+
+fs.writeFile('views/week2Statistics.html', data2);
+
+//handlebars template generators week3
+var data3 = {
+    "mostPop": [mostPopular3],
+    "leastPop": [lowest3],
+    "mostPopCat": [mostPopCat3],
+    "leastPopCat": [leastPopCat3]
+}
+
+var source = fs.readFileSync('week3.handlebars', 'utf-8')
+
+var template = Handlebars.compile(source);
+var data3 = template(data3);
+
+
+fs.writeFile('views/week3Statistics.html', data3);
+
+//handlebars template generators week4
+var data4 = {
+    "mostPop": [mostPopular4],
+    "leastPop": [lowest4],
+    "mostPopCat": [mostPopCat4],
+    "leastPopCat": [leastPopCat4]
+}
+
+var source = fs.readFileSync('week4.handlebars', 'utf-8')
+
+var template = Handlebars.compile(source);
+var data4 = template(data4);
+
+
+fs.writeFile('views/week4Statistics.html', data4);

@@ -1,0 +1,27 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>Hello handlebars</title>
+		<script src="handlebars-v4.0.5.js"></script>
+	</head>
+	<body>
+		<ul>
+          {{#each mostPop}}
+		    <p>my most popular product:  {{item}}, {{amount}}</p>
+		  {{/each}}
+
+		  {{#each leastPop}}
+		    <p>my least popular product:  {{item}}, {{amount}}</p>
+		  {{/each}}
+
+		  {{#each mostPopCat}}
+		  <p> my most popular product: {{category}}, {{amount}}</p>
+		  {{/each}}
+
+		  {{#each leastPopCat}}
+		  <p> my least popular product: {{category}}, {{amount}}</p>
+		  {{/each}}
+
+		</ul>
+	</body>
+</html>
