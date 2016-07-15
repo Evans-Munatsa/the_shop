@@ -1,19 +1,19 @@
 var fs = require('fs');
-var handlebars = require('handlebars');
-var leastPopularProduct = require('./least');
-var mostPopularProduct = require('./most');
-var leastSoldCategory = require('./leastSoldCategory');
-var mostSoldCategory = require('./mostSoldCategory');
-var mostProfitableProduct = require('./mostProfitableProduct');
-var mostProfitableCategory = require('./mostProfitableCategory');
-var weeklySales = require('./products');
-var category = require('./categories_totals');
+var Handlebars = require('handlebars');
+var leastPopularProduct = require('./scripts/least');
+var mostPopularProduct = require('./scripts/most');
+var leastSoldCategory = require('./scripts/leastSoldCategory');
+var mostSoldCategory = require('./scripts/mostSoldCategory');
+var mostProfitableProduct = require('./scripts/mostProfitableProduct');
+var mostProfitableCategory = require('./scripts/mostProfitableCategory');
+var weeklySales = require('./scripts/products');
+var category = require('./scripts/categories_totals');
 
-var csv1 = '../csv/week1.csv';
-var csv2 = '../csv/week2.csv';
-var csv3 = '../csv/week3.csv';
-var csv4 = '../csv/week4.csv';
-var categories1 = '../csv/categories.csv';
+var csv1 = './csv/week1.csv';
+var csv2 = './csv/week2.csv';
+var csv3 = './csv/week3.csv';
+var csv4 = './csv/week4.csv';
+var categories1 = './csv/categories.csv';
 var cat = category.categoriesMap(categories1)
 
 
@@ -25,7 +25,7 @@ var mostPopular1 = mostPopularProduct.most(weekDisplay1);
 var mostPopCat1 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay1)
 
 
-gets files from csv and process everything into an object of week two
+//gets files from csv and process everything into an object of week two
 var weekDisplay2 = weeklySales.weeklyProducts(csv2);
 var categoryWeekDisplay2 = category.categories_total(cat, weekDisplay2)
 var lowest2 = leastPopularProduct.least(weekDisplay2)
@@ -45,3 +45,14 @@ var categoryWeekDisplay4 = category.categories_total(cat, weekDisplay4)
 var lowest4 = leastPopularProduct.least(weekDisplay4)
 var mostPopular4 = mostPopularProduct.most(weekDisplay4);
 var mostPopCat4 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay4)
+
+	var data = {
+	"productsProp":[ mostPopular1 , lowest1]}
+
+var source = fs.readFileSync('week1.handlebars', 'utf-8')
+		
+	var template = Handlebars.compile(source);
+	var data = template(data);
+
+
+ fs.writeFile('views/week1Statitics.html', data);
