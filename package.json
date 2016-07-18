@@ -1,0 +1,21 @@
+{
+  "name": "the_shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "author": "Evans-Munatsa",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "express": "^4.13.4",
+    "handlebars": "^4.0.5",
+    "morgan": "^1.7.0",
+    "travis": "^0.1.1"
+  }
+}
