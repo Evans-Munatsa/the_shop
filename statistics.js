@@ -1,11 +1,6 @@
 var fs = require('fs');
 var Handlebars = require('handlebars');
-var leastPopularProduct = require('./scripts/least');
-var mostPopularProduct = require('./scripts/most');
-var leastSoldCategory = require('./scripts/leastSoldCategory');
-var mostSoldCategory = require('./scripts/mostSoldCategory');
-var mostProfitableProduct = require('./scripts/mostProfitableProduct');
-var mostProfitableCategory = require('./scripts/mostProfitableCategory');
+
 var weeklySales = require('./scripts/products');
 var category = require('./scripts/categories_totals');
 
@@ -16,101 +11,44 @@ var csv4 = './csv/week4.csv';
 var categories1 = './csv/categories.csv';
 var cat = category.categoriesMap(categories1)
 
+function sales(salasCSV) {
+    var leastPopularProduct = require('./scripts/least');
+    var mostPopularProduct = require('./scripts/most');
+    var leastSoldCategory = require('./scripts/leastSoldCategory');
+    var mostSoldCategory = require('./scripts/mostSoldCategory');
+    var mostProfitableProduct = require('./scripts/mostProfitableProduct');
+    var mostProfitableCategory = require('./scripts/mostProfitableCategory');
 
-//gets files from csv and process everything into an object of week one
-var weekDisplay1 = weeklySales.weeklyProducts(csv1);
-var categoryWeekDisplay1 = category.categories_total(cat, weekDisplay1)
-var lowest1 = leastPopularProduct.least(weekDisplay1)
-var mostPopular1 = mostPopularProduct.most(weekDisplay1);
-var mostPopCat1 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay1)
-var leastPopCat1 = leastSoldCategory.leastSoldCategory(categoryWeekDisplay1)
+    var weekDisplay = weeklySales.weeklyProducts(salasCSV);
+    var categoryWeekDisplay = category.categories_total(cat, weekDisplay)
+    var lowest = leastPopularProduct.least(weekDisplay)
+    var mostPopular = mostPopularProduct.most(weekDisplay);
+    var mostPopCat = mostSoldCategory.mostSoldCategory(categoryWeekDisplay)
+    var leastPopCat = leastSoldCategory.leastSoldCategory(categoryWeekDisplay)
 
-//gets files from csv and process everything into an object of week two
-var weekDisplay2 = weeklySales.weeklyProducts(csv2);
-var categoryWeekDisplay2 = category.categories_total(cat, weekDisplay2)
-var lowest2 = leastPopularProduct.least(weekDisplay2)
-var mostPopular2 = mostPopularProduct.most(weekDisplay2);
-var mostPopCat2 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay2)
-var leastPopCat2 = leastSoldCategory.leastSoldCategory(categoryWeekDisplay2)
-
-//gets files from csv and process everything into an object of week three
-var weekDisplay3 = weeklySales.weeklyProducts(csv3);
-var categoryWeekDisplay3 = category.categories_total(cat, weekDisplay3)
-var lowest3 = leastPopularProduct.least(weekDisplay3)
-var mostPopular3 = mostPopularProduct.most(weekDisplay3);
-var mostPopCat3 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay3)
-var leastPopCat3 = leastSoldCategory.leastSoldCategory(categoryWeekDisplay3)
-
-//gets files from csv and process everything into an object of week four
-var weekDisplay4 = weeklySales.weeklyProducts(csv4);
-var categoryWeekDisplay4 = category.categories_total(cat, weekDisplay4)
-var lowest4 = leastPopularProduct.least(weekDisplay4)
-var mostPopular4 = mostPopularProduct.most(weekDisplay4);
-var mostPopCat4 = mostSoldCategory.mostSoldCategory(categoryWeekDisplay4)
-var leastPopCat4 = leastSoldCategory.leastSoldCategory(categoryWeekDisplay4)
-
-
-//handlebars template generators week1
-var data = {
-    "mostPop": [mostPopular1],
-    "leastPop": [lowest1],
-    "mostPopCat": [mostPopCat1],
-    "leastPopCat": [leastPopCat1]
+    var data = {
+        "mostPop": [mostPopular],
+        "leastPop": [lowest],
+        "mostPopCat": [mostPopCat],
+        "leastPopCat": [leastPopCat]
+    }
+    return data;
 }
+var week1 = sales(csv1, categories1);
+var week2 = sales(csv2, categories1);
+var week3 = sales(csv3, categories1);
+var week4 = sales(csv4, categories1);
 
-var source = fs.readFileSync('week1.handlebars', 'utf-8')
+
+var source = fs.readFileSync('views/index.handlebars', 'utf-8')
 
 var template = Handlebars.compile(source);
-var data = template(data);
+var data1 = template(week1);
+var data2 = template(week2);
+var data3 = template(week3);
+var data4 = template(week4);
 
-
-fs.writeFile('views/week1Statistics.html', data);
-
-
-//handlebars template generators week2
-var data2 = {
-    "mostPop": [mostPopular2],
-    "leastPop": [lowest2],
-    "mostPopCat": [mostPopCat2],
-    "leastPopCat": [leastPopCat2]
-}
-
-var source = fs.readFileSync('week2.handlebars', 'utf-8')
-
-var template = Handlebars.compile(source);
-var data2 = template(data2);
-
-
-fs.writeFile('views/week2Statistics.html', data2);
-
-//handlebars template generators week3
-var data3 = {
-    "mostPop": [mostPopular3],
-    "leastPop": [lowest3],
-    "mostPopCat": [mostPopCat3],
-    "leastPopCat": [leastPopCat3]
-}
-
-var source = fs.readFileSync('week3.handlebars', 'utf-8')
-
-var template = Handlebars.compile(source);
-var data3 = template(data3);
-
-
-fs.writeFile('views/week3Statistics.html', data3);
-
-//handlebars template generators week4
-var data4 = {
-    "mostPop": [mostPopular4],
-    "leastPop": [lowest4],
-    "mostPopCat": [mostPopCat4],
-    "leastPopCat": [leastPopCat4]
-}
-
-var source = fs.readFileSync('week4.handlebars', 'utf-8')
-
-var template = Handlebars.compile(source);
-var data4 = template(data4);
-
-
-fs.writeFile('views/week4Statistics.html', data4);
+fs.writeFile('views/week1.html', data1);
+fs.writeFile('views/week2.html', data2);
+fs.writeFile('views/week3.html', data3);
+fs.writeFile('views/week4.html', data4);
