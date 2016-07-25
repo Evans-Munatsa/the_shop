@@ -1,0 +1,29 @@
+<div class='container'>
+	<h1>Statistics</h1>
+	<ul>
+		{{#each mostPop}}
+			<p>my most popular product:  {{item}}, {{amount}}</p>
+		{{/each}}
+
+		{{#each leastPop}}
+			<p>my least popular product:  {{item}}, {{amount}}</p>
+		{{/each}}
+
+		{{#each mostPopCat}}
+			<p> my most popular product: {{category}}, {{amount}}</p>
+		{{/each}}
+
+		{{#each leastPopCat}}
+			<p> my least popular product: {{category}}, {{amount}}</p>
+		{{/each}}
+
+		{{#each mostProfProd}}
+			<p> my Most profitable product: {{item}}, {{profitCash}}</p>
+		{{/each}}
+
+		{{#each mostProfCat}}
+			<p> my Most profitable Category: {{category}}, {{profitCash}}</p>
+		{{/each}}
+    </ul>
+</div>
+		

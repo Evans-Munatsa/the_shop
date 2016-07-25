@@ -77,6 +77,6 @@ exports.profitableProduct = function(profits){
             };
         }
     }
-    console.log(mostProfitableProduct)
+    // console.log(mostProfitableProduct)
     return mostProfitableProduct;
 }
