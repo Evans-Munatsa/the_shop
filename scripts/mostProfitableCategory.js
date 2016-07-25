@@ -60,5 +60,6 @@ exports.profitableCat = function(profits) {
             };
         }
     }
+    // console.log(mostProfitableCategory)
     return mostProfitableCategory;
 }
