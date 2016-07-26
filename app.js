@@ -16,7 +16,7 @@ var cat = category.categoriesMap(categories1)
 var app = express();
 
 
-app.use(express.static(path.resolve(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // app.set("views", path.resolve(__dirname, "views"));
 
