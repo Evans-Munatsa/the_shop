@@ -1,29 +1,53 @@
-<div class='container'>
-	<h1>Statistics</h1>
-	<ul>
-		{{#each mostPop}}
-			<p>my most popular product:  {{item}}, {{amount}}</p>
-		{{/each}}
-
-		{{#each leastPop}}
-			<p>my least popular product:  {{item}}, {{amount}}</p>
-		{{/each}}
-
-		{{#each mostPopCat}}
-			<p> my most popular product: {{category}}, {{amount}}</p>
-		{{/each}}
-
-		{{#each leastPopCat}}
-			<p> my least popular product: {{category}}, {{amount}}</p>
-		{{/each}}
-
-		{{#each mostProfProd}}
-			<p> my Most profitable product: {{item}}, {{profitCash}}</p>
-		{{/each}}
-
-		{{#each mostProfCat}}
-			<p> my Most profitable Category: {{category}}, {{profitCash}}</p>
-		{{/each}}
-    </ul>
+<h2 class="sub-header">Statistics</h2>
+<div class="table-responsive">
+	<table class="table table-striped">
+		<tbody>
+			<tr>
+				{{#each mostPop}}
+				<td>most popular product</td>
+				<td>{{item}}</td>
+				<td>{{amount}}</td>
+				{{/each}}
+			</tr>
+			
+			<tr>
+				{{#each leastPop}}
+				<td>least popular product</td>
+				<td>{{item}}</td>
+				<td>{{amount}}</td>
+				{{/each}}
+			</tr>
+			<tr>
+				{{#each mostPopCat}}
+				<td>most popular category</td>
+				<td>{{category}}</td>
+				<td>{{amount}}</td>
+				{{/each}}
+			</tr>
+			<tr>
+				{{#each leastPopCat}}
+				<td>least popular category</td>
+				<td>{{category}}</td>
+				<td>{{amount}}</td>
+				{{/each}}
+			</tr>
+			
+			<tr>
+				{{#each mostProfProd}}
+				<td>Most profitable Product</td>
+				<td>{{item}}</td>
+				<td>{{profitCash}}</td>
+				{{/each}}
+			</tr>
+			<tr>
+				{{#each mostProfCat}}
+				<td>Most profitable Category</td>
+				<td>{{category}}</td>
+				<td>{{profitCash}}</td>
+				{{/each}}
+			</tr>
+			<tr>
+			</tbody>
+		</table>
+	</div>
 </div>
-		

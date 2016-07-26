@@ -65,6 +65,10 @@ app.get('/sales/:week_name', function(req, res) {
     res.render('weeklyStatistics', data);
 });
 
+app.get('/', function(req, res) {
+    res.render('home')
+})
+
 
 //set the port number to an existing environment variable PORT or default to 5000
 app.set('port', (process.env.PORT || 5000));
