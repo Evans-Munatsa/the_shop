@@ -19,6 +19,7 @@
     "express-handlebars": "^3.0.0",
     "handlebars": "^4.0.5",
     "morgan": "^1.7.0",
+    "mysql": "^2.11.1",
     "travis": "^0.1.1"
   }
 }

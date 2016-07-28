@@ -1,8 +1,18 @@
 var fs = require('fs');
 var express = require('express');
+var mysql = require('mysql');
 var path = require("path");
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars')
+
+//database connections
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'root',
+  database: 'the_shop'
+});
+
 
 var weeklySales = require('./scripts/products');
 var category = require('./scripts/categories_totals');
@@ -76,3 +86,14 @@ app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+
+//database
+connection.connect();
+
+connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+  if (err) throw err;
+  console.log('The solution is: ', rows[0].solution);
+});
+
+connection.end();
+
