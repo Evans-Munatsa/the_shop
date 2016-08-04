@@ -5,13 +5,15 @@ var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root',
+    port: 3306,
     database: 'the_shop'
 });
 
 
+
 //database
 connection.connect();
-var sql = "INSERT INTO Products (id, name, price, category_id) VALUES ?";
+var sql = "INSERT INTO Products (id, description, price, category_id) VALUES ?";
 var values = [
     ['1', 'Bread', '12.00', '7'],
     ['2', 'Gold Dish Vegetable Curry Can', '9.00', '2'],

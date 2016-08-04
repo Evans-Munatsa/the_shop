@@ -1,22 +1,36 @@
-var fs = require('fs');
-var express = require('express');
-var mysql = require('mysql');
-var path = require("path");
-var bodyParser = require('body-parser');
-var exphbs = require('express-handlebars')
+var fs = require('fs'),
+    express = require('express'),
+    mysql = require('mysql'),
+    path = require("path"),
+    myConnection = require('express-myconnection'),
+    bodyParser = require('body-parser'),
+    exphbs = require('express-handlebars'),
+    categories = require('./routes/categories'),
+    products = require('./routes/products'),
 
-var weeklySales = require('./scripts/products');
-var category = require('./scripts/categories_totals');
-var profitProduct = require('./scripts/mostProfitableProduct');
-var profitCat = require('./scripts/mostProfitableCategory');
+    weeklySales = require('./scripts/products'),
+    category = require('./scripts/categories_totals'),
+    profitProduct = require('./scripts/mostProfitableProduct'),
+    profitCat = require('./scripts/mostProfitableCategory'),
 
-var purchases = './csv/purchases.csv'
-var categories1 = './csv/categories.csv';
-var cat = category.categoriesMap(categories1)
+    purchases = './csv/purchases.csv',
+    categories1 = './csv/categories.csv',
+    cat = category.categoriesMap(categories1),
 
-var app = express();
+    app = express();
 
-app.use(express.static(path.join(__dirname, "public")));
+
+//database connections
+    var connection = {
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    port: 3306,
+    database: 'the_shop'
+};
+
+
+
 
 // app.set("views", path.resolve(__dirname, "views"));
 
@@ -24,6 +38,27 @@ app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
+
+app.use(express.static(path.join(__dirname, "public")));
+
+//setup middleware
+app.use(myConnection(mysql, connection, 'single'));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
+// parse application/json
+app.use(bodyParser.json())
+
+function errorHandler(err, req, res, next) {
+    res.status(500);
+    res.render('error', {
+        error: err
+    });
+}
+
+
+
 
 
 function sales(salasCSV) {
@@ -64,14 +99,17 @@ app.get('/sales/:week_name', function(req, res) {
     res.render('weeklyStatistics', data);
 });
 
-app.get('/', function(req, res) {
-    res.render('home')
-})
+// app.get('/', function(req, res) {
+//     res.render('home')
+// })
+
+app.get('/', products.show);
+app.get('/products', products.show);
 
 
 //set the port number to an existing environment variable PORT or default to 5000
 app.set('port', (process.env.PORT || 5000));
 //start the app like this:
 app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+    console.log('Node app is running on port', app.get('port'));
 });

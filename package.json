@@ -17,6 +17,7 @@
     "bootstrap": "^3.3.6",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
+    "express-myconnection": "^1.0.4",
     "handlebars": "^4.0.5",
     "morgan": "^1.7.0",
     "mysql": "^2.11.1",

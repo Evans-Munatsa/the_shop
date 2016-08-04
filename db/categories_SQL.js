@@ -3,7 +3,7 @@ var mysql = require('mysql');
 //database connections
 var connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
+    User: 'root',
     password: 'root',
     database: 'the_shop'
 });
@@ -28,3 +28,4 @@ connection.query(sql, [values], function(err) {
 });
 
 connection.end();
+
