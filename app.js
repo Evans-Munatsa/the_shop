@@ -105,6 +105,10 @@ app.get('/sales/:week_name', function(req, res) {
 
 app.get('/', products.show);
 app.get('/products', products.show);
+app.get('/products/edit/:id', products.get);
+app.post('/products/update/:id', products.update);
+app.get('/products/add', products.showAdd);
+app.post('/products/add', products.add)
 
 
 //set the port number to an existing environment variable PORT or default to 5000
