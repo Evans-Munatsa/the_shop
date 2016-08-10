@@ -9,7 +9,12 @@ var connection = mysql.createConnection({
     database: 'the_shop'
 });
 
+// get the category ids from the database!!!!!
+    // use sql select to find all the categories from the database
 
+//loop through categories 
+
+//map the product name to the category id!!!!
 
 //database
 connection.connect();
