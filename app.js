@@ -21,7 +21,7 @@ var fs = require('fs'),
 
 
 //database connections
-    var connection = {
+var connection = {
     host: 'localhost',
     user: 'root',
     password: 'root',
@@ -99,16 +99,27 @@ app.get('/sales/:week_name', function(req, res) {
     res.render('weeklyStatistics', data);
 });
 
-// app.get('/', function(req, res) {
-//     res.render('home')
-// })
 
-app.get('/', products.show);
+app.get('/', function(req, res) {
+     res.render('home')
+ })
+
 app.get('/products', products.show);
 app.get('/products/edit/:id', products.get);
 app.post('/products/update/:id', products.update);
 app.get('/products/add', products.showAdd);
 app.post('/products/add', products.add)
+app.get('/products/delete/:id', products.delete);
+
+
+
+app.get('/categories', categories.show);
+app.get('/categories/add', categories.showAdd);
+app.get('/categories/edit/:id', categories.get);
+app.post('/categories/update/:id', categories.update);
+app.post('/categories/add', categories.add);
+//this should be a post but this is only an illustration of CRUD - not on good practices
+app.get('/categories/delete/:id', categories.delete);
 
 
 //set the port number to an existing environment variable PORT or default to 5000

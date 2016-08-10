@@ -1,0 +1,20 @@
+<div class="container">
+	<form action="/products/add" method="POST" class="form-signin">
+		<h1>Add product</h1>
+		<div class="">
+			<label for="">Category</label>
+			<select class="" name="category_id">
+				{{#categories}}
+				<option value="{{id}}">{{description}}</option>
+				{{/categories}}
+			</select>
+		</div>
+		<div>
+			<input type="text" name="description" value="{{description}}" id="description" placeholder="description" class="form-control" required="" autofocus="">
+		</div>
+		<div>
+			<input type="number" step="any" name="price" value="{{price}}" class="form-control" placeholder="Amount" required="">
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+	</form>
+</div>
