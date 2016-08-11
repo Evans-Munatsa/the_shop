@@ -59,8 +59,6 @@ function errorHandler(err, req, res, next) {
 
 
 
-
-
 function sales(salasCSV) {
     var leastPopularProduct = require('./scripts/least');
     var mostPopularProduct = require('./scripts/most');

@@ -9,15 +9,54 @@ var connection = mysql.createConnection({
     database: 'the_shop'
 });
 
-// get the category ids from the database!!!!!
-    // use sql select to find all the categories from the database
+var cats = {
+    'Gold Dish Vegetable Curry Can': 'canned',
+    'Top Class Soy Mince': 'canned',
+    'Fanta 500ml': 'beverages',
+    'Coke 500ml': 'beverages',
+    'Cream Soda 500ml': 'beverages',
+    'Shampoo 1 litre': 'soaps',
+    'Soap Bar': 'soaps',
+    'Apples - loose': 'fruits',
+    'Bananas - loose': 'fruits',
+    'Mixed Sweets 5s': 'gifts',
+    'Heart Chocolates': 'gifts',
+    'Valentine Cards': 'gifts',
+    'Rose(plastic)': 'gifts',
+    'Milk 1l': 'dairy',
+    'Bread': 'albany',
+    'Iwisa Pap 5kg': 'mealies',
+    'Imasi': 'mealies'
+}
 
-//loop through categories 
+
+// get the category ids from the database!!!!!
+connection.query("SELECT * FROM Categories", function(err, result) {
+    if (err) throw err;
+
+    var categories_storage = [];
+    result.forEach(function(item) {
+        categories_storage.push({
+            id: item.id,
+            description: item.description
+        })
+    })
+    
+
+    for(things in categories_storage){
+      for(stuff in cats){
+        if (cats[stuff] === categories_storage[things]) {
+            console.log(categories_storage)
+        };
+      }
+    }
+});
+
+
 
 //map the product name to the category id!!!!
 
 //database
-connection.connect();
 var sql = "INSERT INTO Products (description, category_id) VALUES ?";
 var values = [
     ['Bread', '7'],

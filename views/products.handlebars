@@ -1,11 +1,14 @@
 <h1>Products</h1>
 
-<a href="/products/add">Add</a>
+
+<button class="btn btn-primary" type="submit"><a href="/products/add">Add</a></button>
+<hr>
 
 {{#products}}
   <h4>{{description}}</h4>
-  <a href="/products/edit/{{id}}">Edit</a>
-  <a href="/products/delete/{{id}}">Delete</a>
+  <button class="btn btn-primary" type="submit"><a href="/products/edit/{{id}}">Edit</a></button>
+  <button class="btn btn-danger" type="submit"><a href="/products/delete/{{id}}">Delete</a></button>
+  <hr>
 {{/products}}
 
 {{#no_products}}
