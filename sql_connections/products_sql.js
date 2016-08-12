@@ -34,53 +34,34 @@ var cats = {
 connection.query("SELECT * FROM Categories", function(err, result) {
     if (err) throw err;
 
-    var categories_storage = [];
+    var storage = [];
     result.forEach(function(item) {
-        categories_storage.push({
-            id: item.id,
-            description: item.description
-        })
+        storage.push([
+            id = item.id,
+            description = item.description
+        ])
     })
-    
 
-    for(things in categories_storage){
-      for(stuff in cats){
-        if (cats[stuff] === categories_storage[things]) {
-            console.log(categories_storage)
-        };
-      }
+    var bulk = []
+    for (var things in storage) {
+        for (stuff in cats) {
+            if (cats[stuff] === storage[things][1]) {
+                bulk.push([stuff, storage[things][0]])
+            }
+        }
     }
-});
 
+    var sql = "INSERT INTO Products (description, category_id) VALUES ?";
+
+
+    connection.query(sql, [bulk], function(err) {
+        if (err) throw err;
+    });
+
+    connection.end();
+});
 
 
 //map the product name to the category id!!!!
 
 //database
-var sql = "INSERT INTO Products (description, category_id) VALUES ?";
-var values = [
-    ['Bread', '7'],
-    ['Gold Dish Vegetable Curry Can', '2'],
-    ['Fanta 500ml', '1'],
-    ['Coke 500ml', '1'],
-    ['Cream Soda 500ml', '1'],
-    ['Imasi', '8'],
-    ['Iwisa Pap 5kg', '8'],
-    ['Top Class Soy Mince', '2'],
-    ['Shampoo 1 litre', '3'],
-    ['Soap Bar', '3'],
-    ['Bananas - loose', '4'],
-    ['Apples - loose', '4'],
-    ['Mixed Sweets 5s', '5'],
-    ['Milk 1l', '6'],
-    ['Heart Chocolates', '5'],
-    ['Rose (plastic)', '5'],
-    ['Valentine Cards', '5'],
-    ['Chakalaka Can', '2']
-];
-
-connection.query(sql, [values], function(err) {
-    if (err) throw err;
-});
-
-connection.end();
