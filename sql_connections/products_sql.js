@@ -53,15 +53,9 @@ connection.query("SELECT * FROM Categories", function(err, result) {
 
     var sql = "INSERT INTO Products (description, category_id) VALUES ?";
 
-
     connection.query(sql, [bulk], function(err) {
         if (err) throw err;
     });
 
     connection.end();
 });
-
-
-//map the product name to the category id!!!!
-
-//database

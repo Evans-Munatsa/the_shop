@@ -99,8 +99,15 @@ app.get('/sales/:week_name', function(req, res) {
 
 
 app.get('/', function(req, res) {
-     res.render('home')
- })
+    res.render('home')
+})
+
+app.get('/categories', categories.show);
+app.get('/categories/add', categories.showAdd);
+app.get('/categories/edit/:id', categories.get);
+app.post('/categories/update/:id', categories.update);
+app.post('/categories/add', categories.add);
+app.get('/categories/delete/:id', categories.delete);
 
 app.get('/products', products.show);
 app.get('/products/edit/:id', products.get);
@@ -110,18 +117,8 @@ app.post('/products/add', products.add)
 app.get('/products/delete/:id', products.delete);
 
 
-
-app.get('/categories', categories.show);
-app.get('/categories/add', categories.showAdd);
-app.get('/categories/edit/:id', categories.get);
-app.post('/categories/update/:id', categories.update);
-app.post('/categories/add', categories.add);
-//this should be a post but this is only an illustration of CRUD - not on good practices
-app.get('/categories/delete/:id', categories.delete);
-
-
 //set the port number to an existing environment variable PORT or default to 5000
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 3000));
 //start the app like this:
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));

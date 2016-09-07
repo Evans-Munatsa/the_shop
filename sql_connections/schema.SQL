@@ -26,16 +26,15 @@ create table sales(
 	id int primary key auto_increment,
 	quantity int,
 	price decimal(10, 2),
-	total_sales decimal(10, 2),
 	products_id int,
 	foreign key(products_id) references products(id)
 );
 
 create table purchases(
 	id int primary key auto_increment,
+	dates date, 
 	quantity int,
 	cost_price decimal(10, 2),
-	total_cost decimal(10, 2),
 	products_id int,
 	foreign key(products_id) references products(id)
 );
@@ -46,4 +45,3 @@ create table shop(
     products_id int,
     foreign key(products_id) references products(id)   	
 );
-

@@ -19,6 +19,8 @@
     "express-handlebars": "^3.0.0",
     "express-myconnection": "^1.0.4",
     "handlebars": "^4.0.5",
+    "masonry": "0.0.2",
+    "masonry-layout": "^4.1.0",
     "morgan": "^1.7.0",
     "mysql": "^2.11.1",
     "travis": "^0.1.1"
