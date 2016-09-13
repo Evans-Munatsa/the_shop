@@ -19,8 +19,6 @@ var fs = require('fs'),
 
     app = express();
 
-
-//database connections
 var connection = {
     host: 'localhost',
     user: 'root',
@@ -31,9 +29,6 @@ var connection = {
 
 
 
-
-// app.set("views", path.resolve(__dirname, "views"));
-
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
@@ -43,11 +38,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //setup middleware
 app.use(myConnection(mysql, connection, 'single'));
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
     extended: false
 }))
-// parse application/json
+
 app.use(bodyParser.json())
 
 function errorHandler(err, req, res, next) {
@@ -102,6 +96,7 @@ app.get('/', function(req, res) {
     res.render('home')
 })
 
+//routes
 app.get('/categories', categories.show);
 app.get('/categories/add', categories.showAdd);
 app.get('/categories/edit/:id', categories.get);

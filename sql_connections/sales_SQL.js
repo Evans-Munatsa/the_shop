@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
     database: 'the_shop'
 });
 
-var folderName = fs.readFileSync('../csv/week1.csv', 'utf-8');
+ var folderName = fs.readFileSync('../csv/week1.csv', 'utf-8')
     var gsub = folderName.replace(/R/g, " ").split('\n').splice([1])
 
     var arr = []
@@ -24,26 +24,43 @@ var folderName = fs.readFileSync('../csv/week1.csv', 'utf-8');
     arr.forEach(function(x) {
         arr2.push([x[0], x[1], x[2], Number(x[3], Number(x[4]))])
 
-        var result = {
-            day: x[0],
-            date: x[1],
-            productName: x[2],
-            quantity: Number(x[3]),
-            price: Number(x[4])
-        }
-        arr3.push(result);
+        arr3.push([
+            day = x[0],
+            date = x[1],
+            productName = x[2],
+            quantity = Number(x[3]),
+            price = Number(x[4])
+            ])
     })
-    // Day,Date,stock item,No sold,Sales Price
 
-    var obj = {};
-    for (var i = 0; i < arr3.length; i++) {
-        //check if the product name is not in my MAP/OBJECT
-        if (!obj.hasOwnProperty(arr3[i].productName)) {
-            //put the product name in the Object    
-            obj[arr3[i].productName] = 0;
+    // console.log(arr3)
+
+connection.query("SELECT * FROM products", function(err, result) {
+    if (err) throw err;
+
+    var storage = [];
+    result.forEach(function(item) {
+        storage.push([
+            id = item.id,
+            description = item.description
+        ])
+    })
+
+    var bulk = []
+    for (var things in storage) {
+        for (stuff in arr3) {
+            if (arr3[stuff][2] === storage[things][1]) {
+                bulk.push([arr3[stuff][2], arr3[stuff][3], arr3[stuff][4], storage[things][0]])
+            }
         }
-        //we can safely assume that ALL product name will be in my object.
-        obj[arr3[i].productName] = obj[arr3[i].productName, arr3[i].quantity, arr3[i].price]
     }
-    console.log(obj)
-   
+
+// console.log(bulk)
+    var sql = "INSERT INTO sales (description, number_sold, total_sales, products_id) VALUES ?";
+
+    connection.query(sql, [bulk], function(err) {
+        if (err) throw err;
+    });
+
+    connection.end();
+});

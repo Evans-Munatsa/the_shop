@@ -3,7 +3,7 @@ exports.show = function(req, res, next) {
         if (err) return next(err);
         connection.query('SELECT * FROM Categories', [], function(err, results) {
             if (err) return next(err);
-            res.render('categories', {
+            res.render('categories/categories', {
                 no_products: results.length === 0,
                 categories: results,
             });
