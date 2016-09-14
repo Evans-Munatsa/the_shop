@@ -7,13 +7,14 @@ var fs = require('fs'),
     exphbs = require('express-handlebars'),
     categories = require('./routes/categories'),
     products = require('./routes/products'),
+    purchases = require('./routes/purchases')
 
     weeklySales = require('./scripts/products'),
     category = require('./scripts/categories_totals'),
     profitProduct = require('./scripts/mostProfitableProduct'),
     profitCat = require('./scripts/mostProfitableCategory'),
 
-    purchases = './csv/purchases.csv',
+    purchase = './csv/purchases.csv',
     categories1 = './csv/categories.csv',
     cat = category.categoriesMap(categories1),
 
@@ -111,6 +112,7 @@ app.get('/products/add', products.showAdd);
 app.post('/products/add', products.add)
 app.get('/products/delete/:id', products.delete);
 
+app.get('/purchases', purchases.show);
 
 //set the port number to an existing environment variable PORT or default to 5000
 app.set('port', (process.env.PORT || 3000));

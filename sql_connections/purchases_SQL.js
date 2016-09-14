@@ -50,12 +50,13 @@ var bulk = []
 for (var things in storage) {
     for (stuff in purchaseList) {
         if (purchaseList[stuff][2] === storage[things][1]) {
-            bulk.push([purchaseList[stuff][0], purchaseList[stuff][2], purchaseList[stuff][3], purchaseList[stuff][4], purchaseList[stuff][5], storage[things][0]])
+            bulk.push([purchaseList[stuff][0], purchaseList[stuff][1], purchaseList[stuff][2], purchaseList[stuff][3], purchaseList[stuff][4], purchaseList[stuff][5], storage[things][0]])
         }
     }
 }
 
-var sql = "INSERT INTO purchases (shop, description, quantity, unit_price, total_cost, products_id ) VALUES ?";
+console.log(bulk)
+var sql = "INSERT INTO purchases (shop, dates, description, quantity, unit_price, total_cost, products_id ) VALUES ?";
 
     connection.query(sql, [bulk], function(err) {
         if (err) throw err;

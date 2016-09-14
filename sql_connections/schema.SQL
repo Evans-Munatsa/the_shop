@@ -34,7 +34,7 @@ create table sales(
 create table purchases(
 	id int primary key auto_increment,
 	shop char(100) not null,
-	-- dates date,
+	dates char(100) not null,
 	description char(100) not null,
 	quantity int,
 	unit_price decimal(10, 2),
