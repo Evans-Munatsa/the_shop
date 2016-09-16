@@ -56,7 +56,7 @@ exports.get = function(req, res, next){
 					products.selected = products.id === product.products_id ? "selected" : "";
 					return products;
 				});
-				res.render('purchases/edit', {
+				res.render('edit', {
 					products : products,
 					data : product
 				});
@@ -77,7 +77,7 @@ exports.update = function(req, res, next){
 		if (err) return next(err);
 		connection.query('UPDATE purchases SET ? WHERE id = ?', [data, id], function(err, rows){
 			if (err) return next(err);
-      		res.redirect('/purchases');
+      		res.redirect('purchases');
 		});
     });
 };
@@ -87,7 +87,7 @@ exports.delete = function(req, res, next){
 	req.getConnection(function(err, connection){
 		connection.query('DELETE FROM purchases WHERE id = ?', [id], function(err,rows){
 			if(err) return next(err);
-			res.redirect('/purchases');
+			res.redirect('purchases');
 		});
 	});
 };

@@ -115,6 +115,7 @@ app.get('/products/delete/:id', products.delete);
 app.get('/purchases', purchases.show);
 app.get('/purchases/add', purchases.showAdd);
 app.post('/purchases/add', purchases.add)
+app.get('/purchases/edit/:id', purchases.get);
 
 //set the port number to an existing environment variable PORT or default to 5000
 app.set('port', (process.env.PORT || 3000));
