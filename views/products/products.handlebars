@@ -1,16 +1,35 @@
 <h1>Products</h1>
-
-
 <button class="btn btn-primary" type="submit"><a href="/products/add">Add</a></button>
 <hr>
-
-{{#products}}
-  <h4>{{description}}</h4>
-  <button class="btn btn-primary" type="submit"><a href="/products/edit/{{id}}">Edit</a></button>
-  <button class="btn btn-danger" type="submit"><a href="/products/delete/{{id}}">Delete</a></button>
-  <hr>
-{{/products}}
-
-{{#no_products}}
-  <p>No products available yet. Add some above.</p>
-{{/no_products}}
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h1 class="panel-title">Products</h1>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive panel panel-warning">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						{{#products}}
+						<tr>
+							<td>
+								<p>{{description}}</p>
+								<button class="btn btn-primary btn-sm" type="submit"><a href="/products/edit/{{id}}">Edit</a></button>
+								<button class="btn btn-danger btn-sm" type="submit"><a href="/products/delete/{{id}}">Delete</a></button>
+							</td>
+						</tr>
+						{{/products}}
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{{#no_products}}
+		<p>No products available yet. Add some above.</p>
+		{{/no_products}}
+	</div>

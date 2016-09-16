@@ -35,7 +35,6 @@ create table purchases(
 	id int primary key auto_increment,
 	shop char(100) not null,
 	dates char(100) not null,
-	description char(100) not null,
 	quantity int,
 	unit_price decimal(10, 2),
 	total_cost decimal(10, 2),
