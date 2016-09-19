@@ -24,7 +24,6 @@ create table products(
 
 create table sales(
 	id int primary key auto_increment,
-	description char(100) not null,
 	number_sold int,
 	total_sales decimal(10, 2),
 	products_id int,

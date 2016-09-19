@@ -50,13 +50,13 @@ connection.query("SELECT * FROM products", function(err, result) {
     for (var things in storage) {
         for (stuff in arr3) {
             if (arr3[stuff][2] === storage[things][1]) {
-                bulk.push([arr3[stuff][2], arr3[stuff][3], arr3[stuff][4], storage[things][0]])
+                bulk.push([arr3[stuff][3], arr3[stuff][4], storage[things][0]])
             }
         }
     }
 
 // console.log(bulk)
-    var sql = "INSERT INTO sales (description, number_sold, total_sales, products_id) VALUES ?";
+    var sql = "INSERT INTO sales (number_sold, total_sales, products_id) VALUES ?";
 
     connection.query(sql, [bulk], function(err) {
         if (err) throw err;

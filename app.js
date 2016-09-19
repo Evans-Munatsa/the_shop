@@ -114,13 +114,18 @@ app.post('/products/add', products.add)
 app.get('/products/delete/:id', products.delete);
 
 app.get('/purchases', purchases.show);
-app.get('/purchases/add', purchases.showAdd);
-app.post('/purchases/add', purchases.add)
 app.post('/purchases/update/:id', purchases.update);
 app.get('/purchases/edit/:id', purchases.get);
+app.get('/purchases/add', purchases.showAdd);
+app.post('/purchases/add', purchases.add)
 app.get('/purchases/delete/:id', purchases.delete);
 
 app.get('/sales', sales.show)
+app.get('/sales/add', sales.showAdd);
+app.post('/sales/add', sales.add)
+app.post('/sales/update/:id', sales.update);
+app.get('/sales/edit/:id', sales.get);
+app.get('/sales/delete/:id', sales.delete);
 
 //set the port number to an existing environment variable PORT or default to 5000
 app.set('port', (process.env.PORT || 3000));

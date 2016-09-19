@@ -39,7 +39,7 @@ exports.add = function (req, res, next) {
 
 		connection.query('insert into purchases set ?', data, function(err, results) {
   			if (err) return next(err);
-				res.redirect('purchases/purchases');
+				res.redirect('/purchases');
 		});
 	});
 };
@@ -81,7 +81,7 @@ exports.update = function(req, res, next){
 		if (err) return next(err);
 		connection.query('UPDATE purchases SET ? WHERE id = ?', [data, id], function(err, rows){
 			if (err) return next(err);
-      		res.redirect('purchases/purchases');
+      		res.redirect('/purchases');
 		});
     });
 };
@@ -91,7 +91,7 @@ exports.delete = function(req, res, next){
 	req.getConnection(function(err, connection){
 		connection.query('DELETE FROM purchases WHERE id = ?', [id], function(err,rows){
 			if(err) return next(err);
-			res.redirect('purchases/purchases');
+			res.redirect('/purchases');
 		});
 	});
 };

@@ -1,4 +1,4 @@
-<button class="btn btn-primary" type="submit"><a href="/purchases/add">Add Purchase</a></button>
+<button class="btn btn-primary" type="submit"><a href="/sales/add">Add Sales</a></button>
   <hr>
 <div class="panel panel-info">
 <div class="panel-heading">
@@ -17,15 +17,11 @@
         <tbody>
           <tr>
             {{#sales}}
-            <tr>
-              <td>
-                <p>{{shop}}</p>
-                <button class="btn btn-primary btn-sm" type="submit"><a href="/sales/edit/{{id}}">Edit</a></button>
-                <button class="btn btn-danger btn-sm" type="submit"><a href="/sales/delete/{{id}}">Delete</a></button>
-              </td>
               
               <td>
                 <p>{{description}}</p>
+                <button class="btn btn-primary btn-sm" type="submit"><a href="/sales/edit/{{id}}">Edit</a></button>
+                <button class="btn btn-danger btn-sm" type="submit"><a href="/sales/delete/{{id}}">Delete</a></button>
               </td>
 
               <td>

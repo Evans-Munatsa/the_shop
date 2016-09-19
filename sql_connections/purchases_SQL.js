@@ -55,7 +55,6 @@ for (var things in storage) {
     }
 }
 
-console.log(bulk)
 var sql = "INSERT INTO purchases (shop, dates, quantity, unit_price, total_cost, products_id ) VALUES ?";
 
     connection.query(sql, [bulk], function(err) {

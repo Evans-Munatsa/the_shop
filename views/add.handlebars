@@ -1,0 +1,19 @@
+<div class="container">
+	<form action="/sales/add" method="POST" class="form-signin">
+		<h1>Add Sales</h1>
+		<div class="">
+			<label for="">Product</label>
+			<select class="" name="products_id">
+				{{#products}}
+				<option value="{{id}}">{{description}}</option>
+				{{/products}}
+			</select>
+		</div>
+		<div>
+			<input type="number" name="number_sold" value="{{number_sold}}" id="number_sold" placeholder="number_sold" class="form-control" required="" autofocus="">
+
+			<input type="number" name="total_sales" value="{{total_sales}}" id="total_sales" placeholder="total_sales" class="form-control" required="" autofocus="">
+		</div>
+		<button class="btn btn-primary " type="submit">Create</button>
+	</form>
+</div>
