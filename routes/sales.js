@@ -23,18 +23,3 @@ exports.showAdd = function(req, res) {
     });
 };
 
-exports.add = function(req, res, next) {
-    req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        var data = {
-            products_id: Number(req.body.products_id),
-            price: Number(req.body.price)
-            quantity: Number(req.body.quantity)
-        };
-
-        connection.query('insert into products set ?', data, function(err, results) {
-            if (err) return next(err);
-            res.redirect('/products');
-        });
-    });
-};

@@ -7,7 +7,8 @@ var fs = require('fs'),
     exphbs = require('express-handlebars'),
     categories = require('./routes/categories'),
     products = require('./routes/products'),
-    purchases = require('./routes/purchases')
+    purchases = require('./routes/purchases'),
+    sales = require('./routes/sales')
 
     weeklySales = require('./scripts/products'),
     category = require('./scripts/categories_totals'),
@@ -54,7 +55,7 @@ function errorHandler(err, req, res, next) {
 
 
 
-function sales(salasCSV) {
+function sale(salasCSV) {
     var leastPopularProduct = require('./scripts/least');
     var mostPopularProduct = require('./scripts/most');
     var leastSoldCategory = require('./scripts/leastSoldCategory');
@@ -84,10 +85,10 @@ function sales(salasCSV) {
     return data;
 }
 
-app.get('/sales/:week_name', function(req, res) {
+app.get('/sale/:week_name', function(req, res) {
     var weekName = req.params.week_name;
     var weeklyFile = "./csv/" + weekName + ".csv";
-    var data = sales(weeklyFile, ".csv/purchases.csv");
+    var data = sale(weeklyFile, ".csv/purchases.csv");
 
     res.render('weeklyStatistics', data);
 });
@@ -118,6 +119,8 @@ app.post('/purchases/add', purchases.add)
 app.post('/purchases/update/:id', purchases.update);
 app.get('/purchases/edit/:id', purchases.get);
 app.get('/purchases/delete/:id', purchases.delete);
+
+app.get('/sales', sales.show)
 
 //set the port number to an existing environment variable PORT or default to 5000
 app.set('port', (process.env.PORT || 3000));

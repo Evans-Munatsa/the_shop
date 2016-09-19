@@ -1,0 +1,52 @@
+<button class="btn btn-primary" type="submit"><a href="/purchases/add">Add Purchase</a></button>
+  <hr>
+<div class="panel panel-info">
+<div class="panel-heading">
+    <h1 class="panel-title">Sales</h1>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive panel panel-warning">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>description</th>
+            <th>number Sold</th>
+            <th>Total Sales</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {{#sales}}
+            <tr>
+              <td>
+                <p>{{shop}}</p>
+                <button class="btn btn-primary btn-sm" type="submit"><a href="/sales/edit/{{id}}">Edit</a></button>
+                <button class="btn btn-danger btn-sm" type="submit"><a href="/sales/delete/{{id}}">Delete</a></button>
+              </td>
+              
+              <td>
+                <p>{{description}}</p>
+              </td>
+
+              <td>
+                <p>{{number_sold}}</p>
+              </td>
+
+              <td>
+                <p>R{{total_sales}}</p>
+              </td>
+            
+            </tr>
+            {{/sales}}
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+{{#no_sales}}
+  <p>No sales available yet. Add some above.</p>
+{{/no_sales}}
