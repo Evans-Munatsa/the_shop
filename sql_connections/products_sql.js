@@ -51,9 +51,13 @@ connection.query("SELECT * FROM Categories", function(err, result) {
         }
     }
 
-    var sql = "INSERT INTO products (description, category_id) VALUES ?";
+    // var sql = "INSERT INTO products (description, category_id) VALUES ?";
 
-    connection.query(sql, [bulk], function(err) {
+    connection.query("INSERT INTO products (description, category_id) VALUES ?", [bulk], function(err){
+        if(err) throw err;
+    })
+
+    connection.query("SELECT * FROM products", function(err, result){
         if (err) throw err;
     });
 
