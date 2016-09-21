@@ -8,6 +8,8 @@ DROP TABLE IF EXISTS sales;
 DROP TABLE IF EXISTS purchases;
 DROP TABLE IF EXISTS shop;
 
+SET FOREIGN_KEY_CHECKS = 1;
+
 
 CREATE TABLE Categories(
     id int primary key auto_increment,
