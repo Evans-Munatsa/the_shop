@@ -11,7 +11,8 @@ DROP TABLE IF EXISTS shop;
 
 CREATE TABLE Categories(
     id int primary key auto_increment,
-    description char(100) NOT NULL
+    description char(100) NOT NULL,
+    CONSTRAINT uc_description UNIQUE (description)
 );
 
 
@@ -19,7 +20,8 @@ create table products(
     id int primary key auto_increment,
     description char(100) not null,
     category_id int,
-    foreign key(category_id) references categories(id)
+    foreign key(category_id) references categories(id),
+    CONSTRAINT uc_description UNIQUE (description)
 );
 
 create table sales(
