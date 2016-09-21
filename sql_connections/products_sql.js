@@ -53,11 +53,11 @@ connection.query("SELECT * FROM Categories", function(err, result) {
 
     // var sql = "INSERT INTO products (description, category_id) VALUES ?";
 
-    connection.query("INSERT INTO Products (description, category_id) VALUES ?", [bulk], function(err){
+    connection.query("INSERT INTO products (description, category_id) VALUES ?", [bulk], function(err){
         if(err) throw err;
     })
 
-    connection.query("SELECT * FROM Products", function(err, result){
+    connection.query("SELECT * FROM products", function(err, result){
         if (err) throw err;
     });
 

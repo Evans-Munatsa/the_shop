@@ -1,21 +1,11 @@
 USE the_shop;
 
 SET FOREIGN_KEY_CHECKS=0;
-
 DROP TABLE IF EXISTS Categories;
-DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS Products;
 DROP TABLE IF EXISTS sales;
 DROP TABLE IF EXISTS purchases;
 DROP TABLE IF EXISTS shop;
-
-SET FOREIGN_KEY_CHECKS=1;
-
-SET FOREIGN_KEY_CHECKS=0;
-DROP TABLE IF EXISTS Categories;
-DROP TABLE IF EXISTS Products;
-DROP TABLE IF EXISTS Sales;
-DROP TABLE IF EXISTS Purchases;
-DROP TABLE IF EXISTS Users;
 SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE Categories(
@@ -24,7 +14,7 @@ CREATE TABLE Categories(
   CONSTRAINT uc_description UNIQUE (description)
 );
 
-CREATE TABLE Products(
+CREATE TABLE products(
   id INT PRIMARY KEY AUTO_INCREMENT,
   description char(100) NOT NULL,
   category_id INT,
@@ -32,23 +22,6 @@ CREATE TABLE Products(
   CONSTRAINT uc_description UNIQUE (description)
 );
 
-
-
-
-
--- CREATE TABLE Categories(
---     id int primary key auto_increment,
---     description char(100) NOT NULL,
---     CONSTRAINT uc_description UNIQUE (description)
--- );
-
-
--- create table products(
---     id int primary key auto_increment,
---     description char(100) not null,
---     category_id int,
---     CONSTRAINT `FK_id` FOREIGN KEY (`id`) REFERENCES Categories (`id`)
--- );
 
 create table sales(
 	id int primary key auto_increment,
