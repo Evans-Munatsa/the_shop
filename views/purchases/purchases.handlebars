@@ -1,7 +1,7 @@
 <button class="btn btn-primary" type="submit"><a href="/purchases/add">Add Purchase</a></button>
-  <hr>
+<hr>
 <div class="panel panel-info">
-<div class="panel-heading">
+  <div class="panel-heading">
     <h1 class="panel-title">Purchases</h1>
   </div>
   <div class="panel-body">
@@ -15,6 +15,8 @@
             <th>Quantity</th>
             <th>Unit Price</th>
             <th>Total Cost</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -23,8 +25,7 @@
             <tr>
               <td>
                 <p>{{shop}}</p>
-                <button class="btn btn-primary btn-sm" type="submit"><a href="/purchases/edit/{{id}}">Edit</a></button>
-                <button class="btn btn-danger btn-sm" type="submit"><a href="/purchases/delete/{{id}}">Delete</a></button>
+                
               </td>
               <td>
                 <p>{{dates}}</p>
@@ -32,19 +33,21 @@
               <td>
                 <p>{{description}}</p>
               </td>
-
               <td>
                 <p>{{quantity}}</p>
               </td>
-
               <td>
                 <p>R{{unit_price}}</p>
               </td>
-
               <td>
                 <p>R{{total_cost}}</p>
               </td>
-            
+              <td>
+                <button class="btn btn-info btn-sm" type="submit"><a href="/purchases/edit/{{id}}">Edit</a></button>
+              </td>
+              <td>
+                <button class="btn btn-danger btn-sm" type="submit"><a href="/purchases/delete/{{id}}">Delete</a></button>
+              </td>
             </tr>
             {{/purchases}}
             
@@ -53,9 +56,6 @@
       </div>
     </div>
   </div>
-
-
-
-{{#no_purchases}}
+  {{#no_purchases}}
   <p>No purchases available yet. Add some above.</p>
-{{/no_purchases}}
+  {{/no_purchases}}
