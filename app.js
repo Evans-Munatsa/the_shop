@@ -1,6 +1,7 @@
 var fs = require('fs'),
     express = require('express'),
     mysql = require('mysql'),
+    Router = require('router'),
     path = require("path"),
     myConnection = require('express-myconnection'),
     bodyParser = require('body-parser'),
@@ -8,7 +9,9 @@ var fs = require('fs'),
     categories = require('./routes/categories'),
     products = require('./routes/products'),
     purchases = require('./routes/purchases'),
-    sales = require('./routes/sales')
+    sales = require('./routes/sales'),
+    session = require('express-session'),
+
 
     weeklySales = require('./scripts/products'),
     category = require('./scripts/categories_totals'),
@@ -18,6 +21,7 @@ var fs = require('fs'),
     purchase = './csv/purchases.csv',
     categories1 = './csv/categories.csv',
     cat = category.categoriesMap(categories1),
+
 
     app = express();
 
@@ -29,6 +33,10 @@ var connection = {
     database: 'the_shop'
 };
 
+app.use(session({
+    secret: 'put your secret phrase here please',
+    cookie: { maxAge: 60000 }
+}));
 
 
 app.engine('handlebars', exphbs({
@@ -126,6 +134,8 @@ app.post('/sales/add', sales.add)
 app.post('/sales/update/:id', sales.update);
 app.get('/sales/edit/:id', sales.get);
 app.get('/sales/delete/:id', sales.delete);
+
+
 
 //set the port number to an existing environment variable PORT or default to 5000
 app.set('port', (process.env.PORT || 3000));

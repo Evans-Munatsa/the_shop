@@ -29,7 +29,6 @@ exports.add = function (req, res, next) {
 		var data = {
 			category_id : Number(req.body.category_id),
       		description : req.body.description,
-			// price : Number(req.body.price)
   		};
 
 		connection.query('insert into products set ?', data, function(err, results) {
