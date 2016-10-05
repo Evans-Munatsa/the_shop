@@ -24,9 +24,14 @@ var connection = mysql.createConnection({
     arr.forEach(function(x) {
         arr2.push([x[0], x[1], x[2], Number(x[3], Number(x[4]))])
 
+        var sly = x[1]+ -2016
+    var date = new Date(sly)
+    var another = date.getFullYear()+'/' + (date.getMonth()+1) + '/'+date.getDate();
+
+
         arr3.push([
             day = x[0],
-            date = x[1],
+            date = another,
             productName = x[2],
             quantity = Number(x[3]),
             price = Number(x[4])
@@ -50,13 +55,13 @@ connection.query("SELECT * FROM products", function(err, result) {
     for (var things in storage) {
         for (stuff in arr3) {
             if (arr3[stuff][2] === storage[things][1]) {
-                bulk.push([arr3[stuff][3], arr3[stuff][4], storage[things][0]])
+                bulk.push([arr3[stuff][1], arr3[stuff][3], arr3[stuff][4], storage[things][0]])
             }
         }
     }
 
 // console.log(bulk)
-    var sql = "INSERT INTO sales (number_sold, total_sales, products_id) VALUES ?";
+    var sql = "INSERT INTO sales (dates, number_sold, total_sales, products_id) VALUES ?";
 
     connection.query(sql, [bulk], function(err) {
         if (err) throw err;

@@ -11,6 +11,7 @@ var fs = require('fs'),
     purchases = require('./routes/purchases'),
     sales = require('./routes/sales'),
     session = require('express-session'),
+    flash = require('connect-flash'),
 
 
     weeklySales = require('./scripts/products'),
@@ -22,8 +23,11 @@ var fs = require('fs'),
     categories1 = './csv/categories.csv',
     cat = category.categoriesMap(categories1),
 
-
+    
     app = express();
+    app.use(flash());
+
+
 
 var connection = {
     host: 'localhost',
@@ -103,7 +107,7 @@ app.get('/sale/:week_name', function(req, res) {
 
 
 app.get('/', function(req, res) {
-    res.render('home')
+    res.render('home', {message: req.flash('info', 'Welcome') })
 })
 
 //routes

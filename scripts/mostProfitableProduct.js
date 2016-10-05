@@ -17,6 +17,7 @@ exports.purchases_json = function(array) {
 
     array.forEach(function(values) {
         purchasesArrays.push([values[1], values[2], Number(values[3], Number(values[5]))])
+        
 
         var result = {
             Day: values[1] + '-2016',
@@ -26,11 +27,12 @@ exports.purchases_json = function(array) {
         }
         purchaseList.push(result);
     })
+
     return purchaseList;
 }
 
 exports.groupedPurchase = function(purchasesList, initialDate, lastDate) {
-
+console.log(purchaseList);
     var getWeek = {};
 
     var startDate = new Date(initialDate);
