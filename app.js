@@ -86,7 +86,6 @@ function errorHandler(err, req, res, next) {
 }
 
 
-
 function sale(salasCSV) {
     var leastPopularProduct = require('./scripts/least');
     var mostPopularProduct = require('./scripts/most');
@@ -125,29 +124,9 @@ app.get('/sale/:week_name', function(req, res) {
     res.render('weeklyStatistics', data);
 });
 
-
-// Route that creates a flash message using the express-flash module
-// app.all('/express-flash', function( req, res ) {
-//     req.flash('success', 'This is a flash message using the express-flash module.');
-//     res.redirect(301, '/');
-// });
-
-// // Route that creates a flash message using custom middleware
-// app.all('/session-flash', function( req, res ) {
-//     req.session.sessionFlash = {
-//         type: 'success',
-//         message: 'This is a flash message using custom middleware and express-session.'
-//     }
-//     res.redirect(301, '/');
-// });
 app.get('/', function(req, res) {
-    req.flash("warning", "Ok")
     res.render('home');
 })
-
-// app.get('/', function( req, res ) {
-//     res.render('home', { expressFlash: req.flash('success', 'hello world, are you well'), sessionFlash: res.locals.sessionFlash });
-// });
 
 //routes
 app.get('/categories', categories.show);

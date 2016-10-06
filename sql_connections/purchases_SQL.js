@@ -27,7 +27,6 @@ arr.forEach(function(values) {
     var sly = values[1]+ -2016
     var date = new Date(sly)
     var another = date.getFullYear()+'/' + (date.getMonth()+1) + '/'+date.getDate();
-    console.log(date)
 
     purchaseList.push([
         Shop = values[0],
