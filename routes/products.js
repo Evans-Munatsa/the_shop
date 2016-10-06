@@ -33,6 +33,7 @@ exports.add = function (req, res, next) {
 
 		connection.query('insert into products set ?', data, function(err, results) {
   			if (err) return next(err);
+  			    req.flash("success", "Product Added")
 				res.redirect('/products');
 		});
 	});
@@ -63,14 +64,14 @@ exports.update = function(req, res, next){
 
 	var data = {
 		category_id : Number(req.body.category_id),
-		description : req.body.description,
-		price : Number(req.body.price)
+		description : req.body.description
 	};
   	var id = req.params.id;
   	req.getConnection(function(err, connection){
 		if (err) return next(err);
 		connection.query('UPDATE products SET ? WHERE id = ?', [data, id], function(err, rows){
 			if (err) return next(err);
+			req.flash("success", "Product Updated")
       		res.redirect('/products');
 		});
     });
@@ -81,6 +82,7 @@ exports.delete = function(req, res, next){
 	req.getConnection(function(err, connection){
 		connection.query('DELETE FROM products WHERE id = ?', [id], function(err,rows){
 			if(err) return next(err);
+			req.flash("danger", "Product deleted")
 			res.redirect('/products');
 		});
 	});

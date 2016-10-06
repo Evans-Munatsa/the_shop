@@ -21,14 +21,13 @@ for (i = 0; i < gsub.length - 1; i++) {
 var purchasesArrays = [];
 var purchaseList = [];
 
-
 arr.forEach(function(values) {
     purchasesArrays.push([values[0], values[1], values[2], Number(values[3], Number(values[4], Number(values[5])))])
     
     var sly = values[1]+ -2016
     var date = new Date(sly)
     var another = date.getFullYear()+'/' + (date.getMonth()+1) + '/'+date.getDate();
-
+    console.log(date)
 
     purchaseList.push([
         Shop = values[0],
@@ -38,11 +37,7 @@ arr.forEach(function(values) {
         UnitCost = Number(values[4]),
         TotalCost = Number(values[5])
     ])
-
-    // console.log(purchaseList)
 })
-
-
 
 connection.query("SELECT * FROM products", function(err, result) {
     if (err) throw err;

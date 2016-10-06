@@ -1,7 +1,7 @@
 exports.show = function (req, res, next) {
     req.getConnection(function(err, connection){
         if (err) return next(err);
-        connection.query("select DATE_FORMAT(sales.dates,'%Y-%m-%d') as dates, sales.id, description, sales.number_sold, sales.total_sales from sales INNER JOIN products ON sales.products_id=products.id", [], function(err, results) {
+        connection.query("select DATE_FORMAT(sales.dates,'%Y-%m-%d') as dates, sales.id, description, sales.number_sold, sales.total_sales from sales INNER JOIN products ON sales.products_id=products.id ORDER BY sales.dates DESC", [], function(err, results) {
             if (err) return next(err);
             res.render( 'sales', {
                     no_sales : results.length === 0,
@@ -30,12 +30,14 @@ exports.add = function (req, res, next) {
         if (err) return next(err);
         var data = {
             products_id : Number(req.body.products_id),
+            dates : req.body.dates,
             number_sold : Number(req.body.number_sold),
             total_sales : Number(req.body.total_sales)
         };
 
         connection.query('insert into sales set ?', data, function(err, results) {
             if (err) return next(err);
+                req.flash("success", "Sale Added")
                 res.redirect('/sales');
         });
     });
@@ -75,6 +77,7 @@ exports.update = function(req, res, next){
         if (err) return next(err);
         connection.query('UPDATE sales SET ? WHERE id = ?', [data, id], function(err, rows){
             if (err) return next(err);
+            req.flash("success", "Sale Updated")
             res.redirect('/sales');
         });
     });
@@ -85,6 +88,7 @@ exports.delete = function(req, res, next){
     req.getConnection(function(err, connection){
         connection.query('DELETE FROM sales WHERE id = ?', [id], function(err,rows){
             if(err) return next(err);
+            req.flash("danger", "Sale deleted")
             res.redirect('/sales');
         });
     });

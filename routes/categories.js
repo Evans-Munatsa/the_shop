@@ -25,8 +25,9 @@ exports.add = function(req, res, next) {
 
         connection.query('insert into categories set ?', data, function(err, results) {
             if (err) return next(err);
-            req.flash('info', 'Welcome');
+            req.flash("success", "Category Added");
             res.redirect('/categories');
+
         });
 
     });
@@ -52,6 +53,7 @@ exports.update = function(req, res, next) {
     req.getConnection(function(err, connection) {
         connection.query('UPDATE categories SET ? WHERE id = ?', [data, id], function(err, rows) {
             if (err) next(err);
+            req.flash("success", "Category Updated")
             res.redirect('/categories');
         });
 
@@ -63,6 +65,7 @@ exports.delete = function(req, res, next) {
     req.getConnection(function(err, connection) {
         connection.query('DELETE FROM categories WHERE id = ?', [id], function(err, rows) {
             if (err) return next(err);
+            req.flash("danger", "Category deleted")
             res.redirect('/categories');
         });
     });

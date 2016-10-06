@@ -1,7 +1,7 @@
 exports.show = function (req, res, next) {
 	req.getConnection(function(err, connection){
 		if (err) return next(err);
-		connection.query("select DATE_FORMAT(purchases.dates,'%Y-%m-%d') as dates, purchases.id, purchases.shop, description, purchases.quantity, purchases.unit_price, purchases.total_cost from purchases INNER JOIN products ON purchases.products_id=products.id", [], function(err, results) {
+		connection.query("select DATE_FORMAT(purchases.dates,'%Y-%m-%d') as dates, purchases.id, purchases.shop, description, purchases.quantity, purchases.unit_price, purchases.total_cost from purchases INNER JOIN products ON purchases.products_id=products.id ORDER BY purchases.dates DESC ", [], function(err, results) {
         	if (err) return next(err);
     		res.render( 'purchases/purchases', {
 					no_purchases : results.length === 0,
@@ -39,6 +39,7 @@ exports.add = function (req, res, next) {
 
 		connection.query('insert into purchases set ?', data, function(err, results) {
   			if (err) return next(err);
+  			    req.flash("success", "Purchase Added")
 				res.redirect('/purchases');
 		});
 	});
@@ -81,6 +82,7 @@ exports.update = function(req, res, next){
 		if (err) return next(err);
 		connection.query('UPDATE purchases SET ? WHERE id = ?', [data, id], function(err, rows){
 			if (err) return next(err);
+			req.flash("success", "Purchase Updated")
       		res.redirect('/purchases');
 		});
     });
@@ -91,6 +93,7 @@ exports.delete = function(req, res, next){
 	req.getConnection(function(err, connection){
 		connection.query('DELETE FROM purchases WHERE id = ?', [id], function(err,rows){
 			if(err) return next(err);
+			req.flash("danger", "Purchase Deleted")
 			res.redirect('/purchases');
 		});
 	});

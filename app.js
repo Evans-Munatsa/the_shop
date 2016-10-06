@@ -11,7 +11,8 @@ var fs = require('fs'),
     purchases = require('./routes/purchases'),
     sales = require('./routes/sales'),
     session = require('express-session'),
-    flash = require('connect-flash'),
+    cookieParser = require('cookie-parser'),
+    flash = require('express-flash'),
 
 
     weeklySales = require('./scripts/products'),
@@ -25,7 +26,7 @@ var fs = require('fs'),
 
     
     app = express();
-    app.use(flash());
+    sessionStore = new session.MemoryStore;
 
 
 
@@ -47,6 +48,25 @@ app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
+
+app.use(cookieParser('secret'));
+app.use(session({
+    cookie: { maxAge: 60000 },
+    store: sessionStore,
+    saveUninitialized: true,
+    resave: 'true',
+    secret: 'secret'
+}));
+
+app.use(flash());
+
+// app.use(function(req, res, next){
+//     // if there's a flash message in the session request, make it available in the response, then delete it
+//     res.locals.sessionFlash = req.session.sessionFlash;
+//     delete req.session.sessionFlash;
+//     next();
+// });
+
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -106,9 +126,28 @@ app.get('/sale/:week_name', function(req, res) {
 });
 
 
+// Route that creates a flash message using the express-flash module
+// app.all('/express-flash', function( req, res ) {
+//     req.flash('success', 'This is a flash message using the express-flash module.');
+//     res.redirect(301, '/');
+// });
+
+// // Route that creates a flash message using custom middleware
+// app.all('/session-flash', function( req, res ) {
+//     req.session.sessionFlash = {
+//         type: 'success',
+//         message: 'This is a flash message using custom middleware and express-session.'
+//     }
+//     res.redirect(301, '/');
+// });
 app.get('/', function(req, res) {
-    res.render('home', {message: req.flash('info', 'Welcome') })
+    req.flash("warning", "Ok")
+    res.render('home');
 })
+
+// app.get('/', function( req, res ) {
+//     res.render('home', { expressFlash: req.flash('success', 'hello world, are you well'), sessionFlash: res.locals.sessionFlash });
+// });
 
 //routes
 app.get('/categories', categories.show);
