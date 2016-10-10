@@ -9,11 +9,6 @@ DROP TABLE IF EXISTS purchases;
 DROP TABLE IF EXISTS shop;
 SET FOREIGN_KEY_CHECKS=1;
 
--- CREATE TABLE Users(
--- 	id INT PRIMARY KEY AUTO_INCREMENT,
--- 	name char(100) NOT NULL,
--- 	password char(100) NOT NULL
--- )
 
 CREATE TABLE Categories(
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -48,6 +43,12 @@ create table purchases(
 	total_cost decimal(10, 2),
 	products_id int,
 	foreign key(products_id) references products(id)
+);
+
+CREATE TABLE Users(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name char(100) NOT NULL,
+	password char(100) NOT NULL
 );
 
 create table shop(

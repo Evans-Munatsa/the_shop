@@ -1,7 +1,7 @@
 var fs = require('fs'),
     express = require('express'),
     mysql = require('mysql'),
-    Router = require('router'),
+    router = express.Router(),
     path = require("path"),
     myConnection = require('express-myconnection'),
     bodyParser = require('body-parser'),
@@ -10,6 +10,7 @@ var fs = require('fs'),
     products = require('./routes/products'),
     purchases = require('./routes/purchases'),
     sales = require('./routes/sales'),
+    users = require('./routes/users'),
     session = require('express-session'),
     cookieParser = require('cookie-parser'),
     flash = require('express-flash'),
@@ -60,12 +61,6 @@ app.use(session({
 
 app.use(flash());
 
-// app.use(function(req, res, next){
-//     // if there's a flash message in the session request, make it available in the response, then delete it
-//     res.locals.sessionFlash = req.session.sessionFlash;
-//     delete req.session.sessionFlash;
-//     next();
-// });
 
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -128,7 +123,46 @@ app.get('/', function(req, res) {
     res.render('home');
 })
 
+// Register router
+var rolesMap = {
+    "evans" : "admin",
+    "gagamel" : "view"
+}
+
+var checkUser = function(req, res, next){
+    console.log("checkUser");
+    if(req.session.user){
+        return next();
+    }
+
+    res.redirect("/login");
+}
+
+app.post('/login', function(req, res){
+    req.session.user = {
+        name : req.body.username,
+        is_admin : rolesMap[req.body.username] === "admin"
+    }
+    res.redirect("/home")
+})
+
+app.get("/home", checkUser, function(req, res){
+    res.render("home", {user : req.session.user});
+});
+
+app.get('/logout', function(req, res){
+    delete req.session.user;
+    res.redirect("/login");
+})
+
+app.get("/login", function(req, res){
+    res.render("login", {});
+});
+
 //routes
+app.get('/users/sign_up', users.showAdd);
+app.post('/users/sign_up', users.add)
+
 app.get('/categories', categories.show);
 app.get('/categories/add', categories.showAdd);
 app.get('/categories/edit/:id', categories.get);
@@ -156,7 +190,6 @@ app.post('/sales/add', sales.add)
 app.post('/sales/update/:id', sales.update);
 app.get('/sales/edit/:id', sales.get);
 app.get('/sales/delete/:id', sales.delete);
-
 
 
 //set the port number to an existing environment variable PORT or default to 5000

@@ -1,1 +1,47 @@
 
+<div class="jumbotron">
+  <h1>Welcome to Nelisa Spaza Shop</h1>
+  <p>To learn more about us please sign in</p>
+
+  {{#if user}}
+    Hello, {{user.name}}
+{{/if}}
+
+
+{{#if user.is_admin}}
+
+Welcome admin user!
+
+{{/if}}
+  <p><a class="btn btn-primary btn-lg" href="/login" role="button">Sign In</a></p>
+</div>
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="images/20161009_170832.jpg" alt="Generic placeholder image">
+      <div class="caption">
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="images/20161009_170832.jpg" alt="Generic placeholder image">
+      <div class="caption">
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="images/20161009_170832.jpg" alt="Generic placeholder image">
+      <div class="caption">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
