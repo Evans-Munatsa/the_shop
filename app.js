@@ -14,6 +14,8 @@ var fs = require('fs'),
     session = require('express-session'),
     cookieParser = require('cookie-parser'),
     flash = require('express-flash'),
+    multer = require('multer'),
+    upload = multer(),
 
 
     weeklySales = require('./scripts/products'),
@@ -24,12 +26,9 @@ var fs = require('fs'),
     purchase = './csv/purchases.csv',
     categories1 = './csv/categories.csv',
     cat = category.categoriesMap(categories1),
-
     
     app = express();
     sessionStore = new session.MemoryStore;
-
-
 
 var connection = {
     host: 'localhost',
@@ -39,11 +38,6 @@ var connection = {
     database: 'the_shop'
 };
 
-app.use(session({
-    secret: 'put your secret phrase here please',
-    cookie: { maxAge: 60000 }
-}));
-
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
@@ -52,7 +46,7 @@ app.set('view engine', 'handlebars');
 
 app.use(cookieParser('secret'));
 app.use(session({
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 60000 * 30},
     store: sessionStore,
     saveUninitialized: true,
     resave: 'true',
@@ -62,6 +56,10 @@ app.use(session({
 app.use(flash());
 
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(upload.array());
+app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -123,11 +121,22 @@ app.get('/', function(req, res) {
     res.render('home');
 })
 
-// Register router
+// USER router
 var rolesMap = {
     "evans" : "admin",
     "gagamel" : "view"
 }
+
+app.get('/users/signup', users.userSignup);
+app.post('/users/add', users.add);
+app.post('/login', function(req, res){
+    req.session.user = {
+        name : req.body.name,
+        password : req.body.password,
+        is_admin : rolesMap[req.body.name] === "admin"
+    }
+    res.redirect("/home")
+})
 
 var checkUser = function(req, res, next){
     console.log("checkUser");
@@ -135,66 +144,51 @@ var checkUser = function(req, res, next){
         return next();
     }
 
-    res.redirect("/login");
+    res.redirect("/users/login");
 }
-
-app.post('/login', function(req, res){
-    req.session.user = {
-        name : req.body.username,
-        is_admin : rolesMap[req.body.username] === "admin"
-    }
-    res.redirect("/home")
-})
 
 app.get("/home", checkUser, function(req, res){
     res.render("home", {user : req.session.user});
 });
 
-app.get('/logout', function(req, res){
-    delete req.session.user;
-    res.redirect("/login");
-})
-
-app.get("/login", function(req, res){
+app.get("/users/login", function(req, res){
     res.render("login", {});
 });
 
-//routes
-app.get('/users/sign_up', users.showAdd);
-app.post('/users/sign_up', users.add)
+app.get('/logout', function(req, res){
+    delete req.session.user;
+    res.redirect("/users/login");
+})
 
-app.get('/categories', categories.show);
-app.get('/categories/add', categories.showAdd);
-app.get('/categories/edit/:id', categories.get);
-app.post('/categories/update/:id', categories.update);
-app.post('/categories/add', categories.add);
-app.get('/categories/delete/:id', categories.delete);
+app.get('/categories', checkUser, categories.show);
+app.get('/categories/add', checkUser, categories.showAdd);
+app.get('/categories/edit/:id', checkUser, categories.get);
+app.post('/categories/update/:id', checkUser,  categories.update);
+app.post('/categories/add', checkUser, categories.add);
+app.get('/categories/delete/:id', checkUser, categories.delete);
 
-app.get('/products', products.show);
-app.get('/products/edit/:id', products.get);
-app.post('/products/update/:id', products.update);
-app.get('/products/add', products.showAdd);
-app.post('/products/add', products.add)
-app.get('/products/delete/:id', products.delete);
+app.get('/products', checkUser, products.show);
+app.get('/products/edit/:id', checkUser, products.get);
+app.post('/products/update/:id', checkUser, products.update);
+app.get('/products/add', checkUser, products.showAdd);
+app.post('/products/add', checkUser, products.add)
+app.get('/products/delete/:id', checkUser, products.delete);
 
-app.get('/purchases', purchases.show);
-app.post('/purchases/update/:id', purchases.update);
-app.get('/purchases/edit/:id', purchases.get);
-app.get('/purchases/add', purchases.showAdd);
-app.post('/purchases/add', purchases.add)
-app.get('/purchases/delete/:id', purchases.delete);
+app.get('/purchases', checkUser, purchases.show);
+app.post('/purchases/update/:id', checkUser, purchases.update);
+app.get('/purchases/edit/:id', checkUser, purchases.get);
+app.get('/purchases/add', checkUser, purchases.showAdd);
+app.post('/purchases/add', checkUser, purchases.add)
+app.get('/purchases/delete/:id', checkUser, purchases.delete);
 
-app.get('/sales', sales.show)
-app.get('/sales/add', sales.showAdd);
-app.post('/sales/add', sales.add)
-app.post('/sales/update/:id', sales.update);
-app.get('/sales/edit/:id', sales.get);
-app.get('/sales/delete/:id', sales.delete);
+app.get('/sales', checkUser, sales.show)
+app.get('/sales/add', checkUser, sales.showAdd);
+app.post('/sales/add', checkUser, sales.add)
+app.post('/sales/update/:id', checkUser, sales.update);
+app.get('/sales/edit/:id', checkUser, sales.get);
+app.get('/sales/delete/:id', checkUser, sales.delete);
 
-
-//set the port number to an existing environment variable PORT or default to 5000
 app.set('port', (process.env.PORT || 3000));
-//start the app like this:
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
 });

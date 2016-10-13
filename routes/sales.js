@@ -3,7 +3,7 @@ exports.show = function (req, res, next) {
         if (err) return next(err);
         connection.query("select DATE_FORMAT(sales.dates,'%Y-%m-%d') as dates, sales.id, description, sales.number_sold, sales.total_sales from sales INNER JOIN products ON sales.products_id=products.id ORDER BY sales.dates DESC", [], function(err, results) {
             if (err) return next(err);
-            res.render( 'sales', {
+            res.render( 'sales/sales', {
                     no_sales : results.length === 0,
                     sales : results,
             });
@@ -17,7 +17,7 @@ exports.showAdd = function(req, res) {
         if (err) return next(err);
         connection.query('SELECT * from products', [], function(err, products) {
             if (err) return next(err);
-            res.render('add', {
+            res.render('sales/add', {
                 products: products,
             });
         });
@@ -55,7 +55,7 @@ exports.get = function(req, res, next){
                     products.selected = products.id === product.products_id ? "selected" : "";
                     return products;
                 });
-                res.render('edit', {
+                res.render('sales/edit', {
                     products : products,
                     data : product
                 });
