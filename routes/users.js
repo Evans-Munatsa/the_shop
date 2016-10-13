@@ -1,22 +1,33 @@
-exports.showAdd = function(req, res) {
-    res.render('sign_up');
-}
+exports.userSignup = function(req, res) {
+    res.render('signup');
+};
 
 exports.add = function(req, res, next) {
     req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        var input = req.body;
-        var data = {
-            name: input.name,
-            password: input.password,
-        };
+        if (!req.body.name || !req.body.password) {
+            res.status("400");
+            res.send("Invalid details!");
+        }
 
-        connection.query('insert into Users set ?', data, function(err, results) {
+        var newUser = {
+            name: req.body.name,
+            password: req.body.password
+        };
+        connection.query('insert into Users set ?', newUser, function(err, results) {
             if (err) return next(err);
             req.flash("success", "User Added");
-            res.redirect('/categories');
-
+            req.session.user = newUser;
+            res.redirect('/home');
         });
-
-    });
+    })
 };
+
+
+exports.login = function(req, res){
+    req.session.user = {
+        name : req.body.name,
+        password : req.body.password
+    }
+    res.redirect("/home")
+}
+
