@@ -51,8 +51,3 @@ CREATE TABLE Users(
 	name char(100) NOT NULL,
 	password char(100) NOT NULL
 );
-
-
-ALTER TABLE `products` ADD FOREIGN KEY (category_id) REFERENCES `Categories` (`category_id`);
--- ALTER TABLE `purchases` ADD FOREIGN KEY (products_id) REFERENCES `products` (`products_id`);
--- ALTER TABLE `sales` ADD FOREIGN KEY (products_id) REFERENCES `products` (`products_id`);

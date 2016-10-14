@@ -2,9 +2,36 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 /*forms*/
-h1, h2, h3, h4, h5, h6 {
-  color: grey;
+body {
+    background-color: antiquewhite;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+  color: white;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $gray-light;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
 
 .btn a {
   color: white;
@@ -74,4 +101,67 @@ h1, h2, h3, h4, h5, h6 {
     color: darkorange;
     border-radius: 25px;
 }
+
+.navbar {
+    background-color: #4A0F0F;
+}
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  /*color: white;*/
+  color: #FFC107;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 11px;
+  font-weight: bold;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+
+
+.navbar-brand, .navbar-nav li a{
+    color: white;
+    font-weight: bold
+}
+
+.navbar-nav li .dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: antiquewhite;
+}
+
+.navbar-brand, .navbar-nav li a {
+    color: #FFC107;
+    font-weight: bold;
+}
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  background-color: #4A0F0F;
+  border-top: 1px solid $gray-medium-light;
+  color: $gray-light;
+  a {
+    color: $gray;
+    &:hover {
+      color: $gray-darker;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
 }
