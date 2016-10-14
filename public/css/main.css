@@ -141,6 +141,20 @@ p {
     font-weight: bold;
 }
 
+
+.navbar-toggle {
+    position: relative;
+    float: right;
+    padding: 9px 10px;
+    margin-top: 8px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    background-color: antiquewhite;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
 footer {
   margin-top: 45px;
   padding-top: 5px;
