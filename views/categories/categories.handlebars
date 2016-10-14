@@ -1,37 +1,22 @@
 <h1>Categories</h1>
 <button class="btn btn-info" type="submit"><a href="/categories/add">Add</a></button>
 <hr>
-<div class="panel panel-info">
-	<div class="panel-heading">
-		<h1 class="panel-title">Categories</h1>
-	</div>
-	<div class="panel-body">
-		<div class="table-responsive panel panel-warning">
-			<table class="table table-inverse">
-                <thead class="thead-inverse">
-					<tr>
-						<th>Description</th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						{{#categories}}
-						<tr>
-							<td>
-								<a href="/products" ><h4>{{description}}</h4></a>
-							</td>
-							<td><button class="btn btn-info btn-sm" type="submit"><a href="/categories/edit/{{id}}" >Edit</a></button></td>
-							<td><button class="btn btn-danger btn-sm" type="submit"><a href="/categories/delete/{{id}}">Delete</a></button></td>
-						</tr>
-						{{/categories}}
-						
-					</tbody>
-				</table>
+<div class="row">
+{{#categories}}
+	<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<a href="/products" ><h4>{{description}}</h4></a>
+			<div class="caption">
+				<button class="btn btn-info btn-sm" type="submit"><a href="/categories/edit/{{id}}" >Edit</a></button>
+				<button class="btn btn-danger btn-sm" type="submit"><a href="/categories/delete/{{id}}">Delete</a></button>
 			</div>
 		</div>
-		{{#no_products}}
-		<p>No products available yet. Add some above.</p>
-		{{/no_products}}
 	</div>
+{{/categories}}
+</div>
+
+<div>
+	{{#no_products}}
+	<p>No products available yet. Add some above.</p>
+	{{/no_products}}
+</div>

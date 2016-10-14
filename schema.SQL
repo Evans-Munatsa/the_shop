@@ -16,6 +16,7 @@ CREATE TABLE Categories(
   CONSTRAINT uc_description UNIQUE (description)
 );
 
+
 CREATE TABLE products(
   id INT PRIMARY KEY AUTO_INCREMENT,
   description char(100) NOT NULL,
@@ -51,9 +52,7 @@ CREATE TABLE Users(
 	password char(100) NOT NULL
 );
 
-create table shop(
-    id int primary key auto_increment,
-    shop_name char(100) not null,
-    products_id int,
-    foreign key(products_id) references products(id)   	
-);
+
+ALTER TABLE `products` ADD FOREIGN KEY (category_id) REFERENCES `Categories` (`category_id`);
+-- ALTER TABLE `purchases` ADD FOREIGN KEY (products_id) REFERENCES `products` (`products_id`);
+-- ALTER TABLE `sales` ADD FOREIGN KEY (products_id) REFERENCES `products` (`products_id`);
