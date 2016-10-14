@@ -59,7 +59,7 @@ app.use(flash());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(upload.array());
-app.use(cookieParser());
+// app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "public")));
 

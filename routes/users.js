@@ -23,11 +23,11 @@ exports.add = function(req, res, next) {
 };
 
 
-exports.login = function(req, res){
-    req.session.user = {
-        name : req.body.name,
-        password : req.body.password
-    }
-    res.redirect("/home")
-}
+// exports.login = function(req, res){
+//     req.session.user = {
+//         name : req.body.name,
+//         password : req.body.password
+//     }
+//     res.redirect("/home")
+// }
 
