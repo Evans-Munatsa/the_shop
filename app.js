@@ -128,14 +128,16 @@ var rolesMap = {
 }
 
 app.get('/users/signup', users.userSignup);
-app.post('/users/add', users.add);
+app.post('/users/register', users.register);
+
+
 app.post('/login', function(req, res){
     req.session.user = {
         name : req.body.name,
         password : req.body.password,
         is_admin : rolesMap[req.body.name] === "admin"
     }
-    res.redirect("/home")
+    res.redirect("/categories")
 })
 
 var checkUser = function(req, res, next){
@@ -147,8 +149,8 @@ var checkUser = function(req, res, next){
     res.redirect("/users/login");
 }
 
-app.get("/home", checkUser, function(req, res){
-    res.render("home", {user : req.session.user});
+app.get("categories/categories", checkUser, function(req, res){
+    res.render("categories", {user : req.session.user});
 });
 
 app.get("/users/login", function(req, res){

@@ -13,6 +13,7 @@
   "author": "Evans-Munatsa",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.6",
     "bootstrap-sass": "^3.3.7",

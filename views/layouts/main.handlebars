@@ -21,7 +21,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/" id= "logo">Spaza Shop</a>
+					<a class="navbar-brand" href="/categories" id= "logo">Spaza Shop</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
@@ -47,12 +47,22 @@
 			</nav>
 			
 			<div class='container'>
+				{{#if user}}
+				Hello, {{user.name}}
+				{{/if}}
+				{{#if user.is_admin}}
+				Welcome admin user!
+				{{/if}}
 				<h4 class= 'alert-danger'>{{messages.danger}}</h4>
 				<h4 class= 'alert-success'>{{messages.success}}</h4>
 				{{{body}}}
 			</div>
 			<footer class="footer">
 				<div class="container">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/categories">About Us</a></li>
+						<li><a href="/categories">Contact Us</a></li>
+					</ul>
 					<p class="text-muted"></p>
 				</div>
 			</footer>

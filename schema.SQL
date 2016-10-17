@@ -49,5 +49,7 @@ create table purchases(
 CREATE TABLE Users(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name char(100) NOT NULL,
-	password char(100) NOT NULL
+	email char(100),
+	password char(100) NOT NULL,
+	confirmPassword char(100) NOT NULL
 );
