@@ -30,7 +30,7 @@ exports.register = function(req, res, next) {
 
             connection.query('insert into Users set ?', newUser, function(err, results) {
                 if (err) return next(err);
-                req.flash("success", "User Added");
+                req.flash("success", 'Welcome', newUser.name);
                 req.session.user = newUser;
                 res.redirect('/categories');
             });
