@@ -28,6 +28,8 @@ var fs = require('fs'),
     cat = category.categoriesMap(categories1),
     
     app = express();
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
     sessionStore = new session.MemoryStore;
 
 var connection = {
@@ -56,9 +58,9 @@ app.use(session({
 app.use(flash());
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); 
-app.use(upload.array());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true })); 
+// app.use(upload.array());
 // app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "public")));

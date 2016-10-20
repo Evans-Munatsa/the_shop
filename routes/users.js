@@ -5,7 +5,8 @@ exports.userSignup = function(req, res) {
 
 exports.register = function(req, res, next) {
     req.getConnection(function(err, connection) {
-        if (req.body.name || req.body.email && req.body.password && req.body.confirmPassword) {
+        
+        if (req.body.name && req.body.email && req.body.password && req.body.confirmPassword) {
 
             // if user puts non matching passwords
             if (req.body.password !== req.body.confirmPassword) {
@@ -13,13 +14,7 @@ exports.register = function(req, res, next) {
                 err.status = 400;
                 return next(err)
             } 
-           // if user do not put name and email on registration
-            if (!req.body.name || req.body.email) {
-                var err = new Error('Both name and email need to be inputed');
-                err.status = 400;
-                return next(err)
-            }
-
+           
            // if user puts correct info the get save to database
             var newUser = {
                 name: req.body.name,
@@ -35,7 +30,8 @@ exports.register = function(req, res, next) {
                 res.redirect('/categories');
             });
 
-        } else {
+        } 
+        else {
             var err = new Error('All fields must be filled. ')
             err.status = 400;
             return next(err)

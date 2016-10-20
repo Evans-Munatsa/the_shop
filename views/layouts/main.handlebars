@@ -39,20 +39,12 @@
 							</ul>
 						</li>
 						<li><a href="/logout">Logout</a></li>
-						
 					</ul>
-					
 					</div><!--/.nav-collapse -->
 				</div>
 			</nav>
 			
 			<div class='container'>
-				{{#if user}}
-				Hello, {{user.name}}
-				{{/if}}
-				{{#if user.is_admin}}
-				Welcome admin user!
-				{{/if}}
 				<h4 class= 'alert-danger'>{{messages.danger}}</h4>
 				<h4 class= 'alert-success'>{{messages.success}}</h4>
 				{{{body}}}
