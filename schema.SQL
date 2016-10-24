@@ -21,9 +21,11 @@ CREATE TABLE products(
   id INT PRIMARY KEY AUTO_INCREMENT,
   description char(100) NOT NULL,
   category_id INT,
-  FOREIGN KEY (category_id) REFERENCES Categories (id),
-  CONSTRAINT uc_description UNIQUE (description)
-);
+  CONSTRAINT uc_description 
+  FOREIGN KEY (category_id) 
+  REFERENCES Categories (id)
+  ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB;
 
 
 create table sales(
@@ -32,8 +34,10 @@ create table sales(
 	number_sold int,
 	total_sales decimal(10, 2),
 	products_id int,
-	foreign key(products_id) references products(id)
-);
+	foreign key(products_id) 
+	references products(id)
+	ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB;
 
 create table purchases(
 	id int primary key auto_increment,
@@ -43,8 +47,10 @@ create table purchases(
 	unit_price decimal(10, 2),
 	total_cost decimal(10, 2),
 	products_id int,
-	foreign key(products_id) references products(id)
-);
+	foreign key(products_id)
+	references products(id)
+	ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB;
 
 CREATE TABLE Users(
 	id INT PRIMARY KEY AUTO_INCREMENT,
