@@ -5,9 +5,15 @@ exports.userSignup = function(req, res) {
 
 exports.register = function(req, res, next) {
     req.getConnection(function(err, connection) {
-        
+//        connection.query('SELECT * FROM Users', function(err, rows, fields)   
+// {  
+//   if (err) throw err;  
+  
+//   console.log(rows[0]);  
+// });  
+  
+// console.log(req.body.email)
         if (req.body.name && req.body.email && req.body.password && req.body.confirmPassword) {
-
             // if user puts non matching passwords
             if (req.body.password !== req.body.confirmPassword) {
                 var err = new Error('passwords do not match ')
@@ -33,6 +39,7 @@ exports.register = function(req, res, next) {
         } 
         else {
             var err = new Error('All fields must be filled. ')
+             // req.flash("danger", "All fields must be filled")
             err.status = 400;
             return next(err)
         }
@@ -47,3 +54,8 @@ exports.register = function(req, res, next) {
 //     }
 //     res.redirect("/home")
 // }
+
+// app.get('/logout', function(req, res){
+//     delete req.session.user;
+//     res.redirect("/users/login");
+// })
