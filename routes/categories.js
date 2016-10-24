@@ -23,7 +23,7 @@ exports.add = function(req, res, next) {
             description: input.description,
         };
 
-        connection.query('insert into categories set ?', data, function(err, results) {
+        connection.query('insert into Categories set ?', data, function(err, results) {
             if (err) return next(err);
             req.flash("success", "Category Added");
             res.redirect('/categories');
