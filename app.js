@@ -26,11 +26,13 @@ var fs = require('fs'),
     purchase = './csv/purchases.csv',
     categories1 = './csv/categories.csv',
     cat = category.categoriesMap(categories1),
-    
+
     app = express();
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
-    sessionStore = new session.MemoryStore;
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+sessionStore = new session.MemoryStore;
 
 var connection = {
     host: 'localhost',
@@ -48,7 +50,9 @@ app.set('view engine', 'handlebars');
 
 app.use(cookieParser('secret'));
 app.use(session({
-    cookie: { maxAge: 60000 * 30},
+    cookie: {
+        maxAge: 60000 * 30
+    },
     store: sessionStore,
     saveUninitialized: true,
     resave: 'true',
@@ -58,10 +62,6 @@ app.use(session({
 app.use(flash());
 
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true })); 
-// app.use(upload.array());
-// app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -125,41 +125,48 @@ app.get('/', function(req, res) {
 
 // USER router
 var rolesMap = {
-    "evans" : "admin",
-    "gagamel" : "view"
+    "evans": "admin",
+    "gagamel": "view"
 }
 
 app.get('/users/signup', users.userSignup);
 app.post('/users/register', users.register);
 
 
-app.post('/login', function(req, res){
+app.post('/login', function(req, res) {
+    // req.getConnection(function(err, connection) {
+    //     connection.query('SELECT name, email, password from Users', function(err, rows, fields){
+    //         if (err) throw err;  
+    //     }
     req.session.user = {
-        name : req.body.name,
-        password : req.body.password,
-        is_admin : rolesMap[req.body.name] === "admin"
+        name: req.body.name,
+        password: req.body.password,
+        is_admin: rolesMap[req.body.name] === "admin"
     }
     res.redirect("/categories")
+        // })
 })
 
-var checkUser = function(req, res, next){
+var checkUser = function(req, res, next) {
     console.log("checkUser");
-    if(req.session.user){
+    if (req.session.user) {
         return next();
     }
 
     res.redirect("/users/login");
 }
 
-app.get("categories/categories", checkUser, function(req, res){
-    res.render("categories", {user : req.session.user});
+app.get("categories/categories", checkUser, function(req, res) {
+    res.render("categories", {
+        user: req.session.user
+    });
 });
 
-app.get("/users/login", function(req, res){
+app.get("/users/login", function(req, res) {
     res.render("login", {});
 });
 
-app.get('/logout', function(req, res){
+app.get('/logout', function(req, res) {
     delete req.session.user;
     res.redirect("/users/login");
 })
@@ -167,7 +174,7 @@ app.get('/logout', function(req, res){
 app.get('/categories', checkUser, categories.show);
 app.get('/categories/add', checkUser, categories.showAdd);
 app.get('/categories/edit/:id', checkUser, categories.get);
-app.post('/categories/update/:id', checkUser,  categories.update);
+app.post('/categories/update/:id', checkUser, categories.update);
 app.post('/categories/add', checkUser, categories.add);
 app.get('/categories/delete/:id', checkUser, categories.delete);
 

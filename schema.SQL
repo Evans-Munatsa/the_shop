@@ -24,7 +24,7 @@ CREATE TABLE products(
   CONSTRAINT uc_description 
   FOREIGN KEY (category_id) 
   REFERENCES Categories (id)
-  ON UPDATE CASCADE ON DELETE CASCADE
+  ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 
@@ -36,7 +36,7 @@ create table sales(
 	products_id int,
 	foreign key(products_id) 
 	references products(id)
-	ON UPDATE CASCADE ON DELETE CASCADE
+	ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 create table purchases(
@@ -49,7 +49,7 @@ create table purchases(
 	products_id int,
 	foreign key(products_id)
 	references products(id)
-	ON UPDATE CASCADE ON DELETE CASCADE
+	ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 CREATE TABLE Users(
@@ -57,5 +57,5 @@ CREATE TABLE Users(
 	name char(100) NOT NULL,
 	email char(100) NOT NULL,
 	password char(100) NOT NULL,
-	confirmPassword char(100) NOT NULL
+	CONSTRAINT uc_email UNIQUE (email)
 );

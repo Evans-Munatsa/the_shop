@@ -5,14 +5,14 @@
 			<label for="">Product</label>
 			<select class="" name="products_id">
 				{{#products}}
-				<option value="{{id}}">{{description}}</option>
+				<option {{selected}} value="{{id}}">{{description}}</option>
 				{{/products}}
 			</select>
 		</div>
 		<div>
 			<input type="text" name="shop" value="{{data.shop}}" id="shop" placeholder="shop" class="form-control" required="" autofocus="">
 
-			<input type="date" name="dates" value="{{data.dates}}" id="dates" placeholder="dates" class="form-control" required="" autofocus="">
+			<input type="date" name="dates" {{selected}} value="{{data.dates}}" id="dates" placeholder="dates" class="form-control" required="" autofocus="">
 			
 			<input type="number" name="quantity" value="{{data.quantity}}" id="quantity" placeholder="quantity" class="form-control" required="" autofocus="">
 

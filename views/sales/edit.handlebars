@@ -5,7 +5,7 @@
 			<label for="">Product</label>
 			<select class="" name="products_id">
 				{{#products}}
-				<option value="{{id}}">{{description}}</option>
+				<option {{selected}} value="{{id}}">{{description}}</option>
 				{{/products}}
 			</select>
 		</div>
