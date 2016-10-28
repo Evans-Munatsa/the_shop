@@ -2,8 +2,7 @@
 	<form action="/products/update/{{data.id}}" method="POST" class="form-signin">
 		<h1>Edit product</h1>
 		<div class="">
-			<label for="">Category</label>
-			<select class="" name="category_id">
+			<select class="form-control" name="category_id">
 				{{#categories}}
 				<option {{selected}} value="{{id}}">{{description}}</option>
 				{{/categories}}

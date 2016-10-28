@@ -2,8 +2,7 @@
 	<form action="/purchases/update/{{data.id}}" method="POST" class="form-signin">
 		<h1>Edit purchase</h1>
 		<div class="">
-			<label for="">Product</label>
-			<select class="" name="products_id">
+			<select class="form-control" name="products_id">
 				{{#products}}
 				<option {{selected}} value="{{id}}">{{description}}</option>
 				{{/products}}
