@@ -57,5 +57,6 @@ CREATE TABLE Users(
 	name char(100) NOT NULL,
 	email char(100) NOT NULL,
 	password char(100) NOT NULL,
+	confirm_password char(100) NOT NULL,
 	CONSTRAINT uc_email UNIQUE (email)
 );
