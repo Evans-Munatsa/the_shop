@@ -1,0 +1,20 @@
+<div class="row">
+{{#users}}
+	<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<h4>{{name}}</h4></a>
+			<h4>{{email}}</h4></a>
+			<div class="caption">
+				<button class="btn btn-info btn-sm" type="submit"><a href="/users/edit/{{id}}" >Edit</a></button>
+				<button class="btn btn-danger btn-sm" type="submit"><a href="/users/delete/{{id}}">Delete</a></button>
+			</div>
+		</div>
+	</div>
+{{/users}}
+</div>
+
+<div>
+	{{#no_products}}
+	<p>No products available yet. Add some above.</p>
+	{{/no_products}}
+</div>

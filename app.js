@@ -28,8 +28,8 @@ var fs = require('fs'),
     cat = category.categoriesMap(categories1),
 
     app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({
     extended: false
 }));
 sessionStore = new session.MemoryStore;
@@ -198,6 +198,9 @@ app.post('/sales/add', checkUser, sales.add)
 app.post('/sales/update/:id', checkUser, sales.update);
 app.get('/sales/edit/:id', checkUser, sales.get);
 app.get('/sales/delete/:id', checkUser, sales.delete);
+
+app.get('/users', checkUser, users.show);
+app.use(errorHandler);
 
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() {

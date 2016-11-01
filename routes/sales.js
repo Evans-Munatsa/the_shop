@@ -48,7 +48,7 @@ exports.get = function(req, res, next){
     req.getConnection(function(err, connection){
         connection.query('SELECT * FROM products', [id], function(err, products){
             if(err) return next(err);
-            connection.query('SELECT * FROM sales WHERE id = ?', [id], function(err,sales){
+            connection.query("SELECT sales.id, sales.number_sold, sales.total_sales, DATE_FORMAT(sales.dates, '%Y-%m-%d') as dates FROM sales WHERE id = ?", [id], function(err,sales){
                 if(err) return next(err);
                 var product = sales[0];
                 products = products.map(function(products){

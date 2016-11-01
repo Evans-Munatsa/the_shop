@@ -1,7 +1,7 @@
 exports.show = function (req, res, next) {
 	req.getConnection(function(err, connection){
 		if (err) return next(err);
-		connection.query("select DATE_FORMAT(purchases.dates,'%Y-%m-%d') as dates, purchases.id, purchases.shop, description, purchases.quantity, purchases.unit_price, purchases.total_cost from purchases INNER JOIN products ON purchases.products_id=products.id ORDER BY purchases.dates DESC ", [], function(err, results) {
+		connection.query("select DATE_FORMAT(purchases.dates,'%Y-%m-%d') as dates, purchases.id, purchases.shop, description, purchases.quantity, purchases.unit_price, purchases.total_cost from purchases INNER JOIN products ON purchases.products_id=products.id ", [], function(err, results) {
         	if (err) return next(err);
     		res.render( 'purchases/purchases', {
 					no_purchases : results.length === 0,
@@ -50,16 +50,16 @@ exports.get = function(req, res, next){
 	req.getConnection(function(err, connection){
 		connection.query('SELECT * FROM products', [id], function(err, products){
 			if(err) return next(err);
-			connection.query("select DATE_FORMAT(purchases.dates,'%Y-%m-%d') as dates, purchases.shop, purchases.quantity, purchases.unit_price, purchases.total_cost from purchases WHERE id = ?", [id], function(err,purchases){
+			connection.query("select purchases.shop, purchases.quantity, purchases.unit_price, purchases.total_cost, DATE_FORMAT(purchases.dates,'%Y-%m-%d') as dates from purchases WHERE id = ?", [id], function(err, purchases){
 				if(err) return next(err);
-				var product = purchases[0];
+				var purchase = purchases[0];
 				products = products.map(function(products){
-					products.selected = products.id === product.products_id ? "selected" : "";
+					products.selected = products.id === purchase.products_id ? "selected" : "";
 					return products;
 				});
 				res.render('purchases/edit', {
 					products : products,
-					data : product
+					data : purchase
 				});
 			});
 		});
