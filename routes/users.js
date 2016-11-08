@@ -1,5 +1,8 @@
+var session = require('express-session');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
+
+
 
 exports.show = function(req, res, next) {
     req.getConnection(function(err, connection) {
@@ -26,15 +29,13 @@ exports.register = function(req, res, next) {
             var newUser = {
                 name: req.body.name,
                 email: req.body.email,
-                password: req.body.password,
-                confirm_password: req.body.confirm_password
+                password: req.body.password
             };
 
-            if (req.body.password === req.body.confirm_password) {
+            if (req.body.password) {
                 // using bycrypt to store hashed passwords
                 var passwordStore = bcrypt.hash(newUser.password, saltRounds, function(err, hash) {
                     newUser.password = hash
-                    newUser.confirm_password = hash
                     connection.query('insert into Users set ?', newUser, function(err, results) {
                         if (err) return next(err);
                         req.flash("success", 'Welcome', newUser.name);
@@ -53,19 +54,52 @@ exports.register = function(req, res, next) {
     })
 }
 
-// exports.login = function(req, res) {
-//     res.render('login')
-// }
+exports.checkUser = function(req, res, next) {
+    console.log("checkUser");
+    if (req.session && req.session.DB) {
+        return next();
+    }
+    res.redirect("/users/logIn");
+};
 
-// exports.signIn = function(req, res, next) {
-//     req.getConnection(function(err, connection) {
-//         connection.query('SELECT name, email, password from Users', function(err, rows, fields) {
-//             req.session.user = {
-//                 name: req.body.name,
-//                 password: req.body.password,
-//                 is_admin: rolesMap[req.body.name] === "admin"
-//             }
-//             res.redirect("/categories")
-//         })
-//     })
-// }
+var rolesMap = {
+    "evans": "admin"
+}
+
+exports.logIn = function(req, res, next) {
+    req.getConnection(function(err, connection) {
+        if (err) return next(err)
+        var data = {
+            email: req.body.email,
+            password: req.body.password,
+            is_admin: rolesMap[req.body.name] === "admin"
+        }
+
+        connection.query('SELECT * from Users WHERE email = ?', data.email, function(err, results) {
+            if (err) return next(err)
+            var DB = results[0];
+            console.log(DB)
+
+            if (DB === undefined) {
+                return res.redirect("/users/logIn")
+
+            } else {
+                bcrypt.compare(data.password, DB.password, function(err, pass) {
+                    console.log(pass)
+                    console.log("first:" + data.password, "second:" + DB.password);
+                    if (pass) {
+                        req.session.DB = data.email;
+                        return res.redirect('/categories');
+                    } else {
+                        console.log('incorrect')
+                        return res.redirect('/users/logIn');
+
+                        // return next(err)
+                    }
+
+                });
+
+            }
+        })
+    })
+}

@@ -16,9 +16,11 @@ var fs = require('fs'),
     flash = require('express-flash'),
     multer = require('multer'),
     upload = multer(),
+    bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 
-    weeklySales = require('./scripts/products'),
+weeklySales = require('./scripts/products'),
     category = require('./scripts/categories_totals'),
     profitProduct = require('./scripts/mostProfitableProduct'),
     profitCat = require('./scripts/mostProfitableCategory'),
@@ -28,8 +30,8 @@ var fs = require('fs'),
     cat = category.categoriesMap(categories1),
 
     app = express();
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
     extended: false
 }));
 sessionStore = new session.MemoryStore;
@@ -72,6 +74,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(bodyParser.json())
+    // app.use(checkUser())
 
 function errorHandler(err, req, res, next) {
     res.status(500);
@@ -124,82 +127,85 @@ app.get('/', function(req, res) {
 })
 
 // USER router
-var rolesMap = {
-    "evans": "admin",
-    "gagamel": "view"
-}
+// var rolesMap = {
+//     "evans": "admin",
+//     "gagamel": "view"
+// }
 
-app.get('/users/signup', users.userSignup);
-app.post('/users/register', users.register);
+// app.use(users.checkUser)
+
+// app.post('/login', function(req, res) {
+//     
+//     req.session.user = {
+//         name: req.body.name,
+//         password: req.body.password,
+//         is_admin: rolesMap[req.body.name] === "admin"
+//     }
+//     res.redirect("/categories")
+//         // })
+// })
 
 
-app.post('/login', function(req, res) {
-    // req.getConnection(function(err, connection) {
-    //     connection.query('SELECT name, email, password from Users', function(err, rows, fields){
-    //         if (err) throw err;  
-    //     }
-    req.session.user = {
-        name: req.body.name,
-        password: req.body.password,
-        is_admin: rolesMap[req.body.name] === "admin"
-    }
-    res.redirect("/categories")
-        // })
-})
+// var checkUser = function(req, res, next) {
+//     console.log("checkUser");
+//     if (req.session && req.session.user) {
+//         return next();
+//     } else {
 
-var checkUser = function(req, res, next) {
-    console.log("checkUser");
-    if (req.session.user) {
-        return next();
-    }
+//         res.redirect("/login");
+//     }
+// }
 
-    res.redirect("/users/login");
-}
 
-app.get("categories/categories", checkUser, function(req, res) {
+
+
+
+
+app.get("categories/categories", users.checkUser, function(req, res) {
     res.render("categories", {
         user: req.session.user
     });
 });
 
-app.get("/users/login", function(req, res) {
-    res.render("login", {});
-});
+app.get('/users/signup', users.userSignup);
+app.post('/users/register', users.register);
+app.get('/users/logIn', users.logIn)
+app.post('/users/logIn', users.logIn)
 
 app.get('/logout', function(req, res) {
     delete req.session.user;
-    res.redirect("/users/login");
+    res.redirect("/");
 })
 
-app.get('/categories', checkUser, categories.show);
-app.get('/categories/add', checkUser, categories.showAdd);
-app.get('/categories/edit/:id', checkUser, categories.get);
-app.post('/categories/update/:id', checkUser, categories.update);
-app.post('/categories/add', checkUser, categories.add);
-app.get('/categories/delete/:id', checkUser, categories.delete);
+app.get('/categories', categories.show);
+app.get('/categories/add', users.checkUser, categories.showAdd);
+app.get('/categories/edit/:id', users.checkUser, categories.get);
+app.post('/categories/update/:id', users.checkUser, categories.update);
+app.post('/categories/add', users.checkUser, categories.add);
+app.get('/categories/delete/:id', users.checkUser, categories.delete);
 
-app.get('/products', checkUser, products.show);
-app.get('/products/edit/:id', checkUser, products.get);
-app.post('/products/update/:id', checkUser, products.update);
-app.get('/products/add', checkUser, products.showAdd);
-app.post('/products/add', checkUser, products.add)
-app.get('/products/delete/:id', checkUser, products.delete);
+app.get('/products', users.checkUser, products.show);
+app.get('/products/edit/:id', users.checkUser, products.get);
+app.post('/products/update/:id', users.checkUser, products.update);
+app.get('/products/add', users.checkUser, products.showAdd);
+app.post('/products/add', users.checkUser, products.add)
+app.get('/products/delete/:id', users.checkUser, products.delete);
 
-app.get('/purchases', checkUser, purchases.show);
-app.post('/purchases/update/:id', checkUser, purchases.update);
-app.get('/purchases/edit/:id', checkUser, purchases.get);
-app.get('/purchases/add', checkUser, purchases.showAdd);
-app.post('/purchases/add', checkUser, purchases.add)
-app.get('/purchases/delete/:id', checkUser, purchases.delete);
+app.get('/purchases', users.checkUser, purchases.show);
+app.post('/purchases/update/:id', users.checkUser, purchases.update);
+app.get('/purchases/edit/:id', users.checkUser, purchases.get);
+app.get('/purchases/add', users.checkUser, purchases.showAdd);
+app.post('/purchases/add', users.checkUser, purchases.add)
+app.get('/purchases/delete/:id', users.checkUser, purchases.delete);
 
-app.get('/sales', checkUser, sales.show)
-app.get('/sales/add', checkUser, sales.showAdd);
-app.post('/sales/add', checkUser, sales.add)
-app.post('/sales/update/:id', checkUser, sales.update);
-app.get('/sales/edit/:id', checkUser, sales.get);
-app.get('/sales/delete/:id', checkUser, sales.delete);
+app.get('/sales', users.checkUser, sales.show)
+app.get('/sales/add', users.checkUser, sales.showAdd);
+app.post('/sales/add', users.checkUser, sales.add)
+app.post('/sales/update/:id', users.checkUser, sales.update);
+app.get('/sales/edit/:id', users.checkUser, sales.get);
+app.get('/sales/delete/:id', users.checkUser, sales.delete);
 
-app.get('/users', checkUser, users.show);
+app.get('/users', users.checkUser, users.show);
 app.use(errorHandler);
 
 app.set('port', (process.env.PORT || 3000));

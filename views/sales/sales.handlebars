@@ -5,7 +5,8 @@
 
 <div class='row'>
   {{#sales}}
-  <div class="col-sm-6 col-md-4">
+  <ul>
+  <li class="col-sm-6 col-md-4">
     <div class="thumbnail">
       <h4>{{description}}</h4>
       <p>{{dates}}</p>
@@ -17,7 +18,8 @@
         <button class="btn btn-danger btn-sm" type="submit"><a href="/sales/delete/{{id}}">Delete</a></button>
       </div>
     </div>
-  </div>
+  </li>
+</ul>
   {{/sales}}
 </div>
 
