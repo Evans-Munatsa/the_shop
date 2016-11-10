@@ -26,6 +26,7 @@
     "express-messages": "^1.0.1",
     "express-myconnection": "^1.0.4",
     "express-session": "^1.14.1",
+    "googleapis": "^14.2.0",
     "handlebars": "^4.0.5",
     "jquery": "^3.1.1",
     "masonry": "0.0.2",
@@ -35,6 +36,7 @@
     "multer": "^1.2.0",
     "mysql": "^2.11.1",
     "router": "^1.1.4",
+    "shufflejs": "^4.0.2",
     "travis": "^0.1.1"
   }
 }

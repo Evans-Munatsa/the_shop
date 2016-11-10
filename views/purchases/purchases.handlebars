@@ -1,25 +1,33 @@
 <h1>Purchases</h1>
-<button class="btn btn-info" type="submit"><a href="/purchases/add">Add Purchase</a></button>
-<hr>
+<div class="wrapper">
+  <button class="btn btn-info" type="submit"><a href="/purchases/add">Add Purchase</a></button>
 
-<div class='row'>
-  {{#purchases}}
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <h4>{{description}}</h4>
-      <p>{{dates}}</p>
-      <p>Quantity: {{quantity}}</p>
-      <p>Unit Price: R{{unit_price}}</p>
-      <p>Total Cost: R{{total_cost}}</p>
-      <div class="caption">
-        <button class="btn btn-info btn-sm" type="submit"><a href="/purchases/edit/{{id}}" >Edit</a></button>
-        <button class="btn btn-danger btn-sm" type="submit"><a href="/purchases/delete/{{id}}">Delete</a></button>
-      </div>
-    </div>
-  </div>
-  {{/purchases}}
+  <table id="acrylic">
+    {{#purchases}}
+    <thead>
+      <tr>
+        <th>description</th>
+        <th>dates</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Total Cost</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Description">{{description}}</td>
+        <td data-label="Dates">{{dates}}</td>
+        <td data-label="Quantity">{{quantity}}</td>
+        <td data-label="Sold">R{{unit_price}}</td>
+        <td data-label="Total Sales">R{{total_cost}}</td>
+        <td data-label=""><button class="btn btn-info btn-sm" type="submit"><a href="/purchases/edit/{{id}}" >Edit</a></button>
+        <button class="btn btn-danger btn-sm" type="submit"><a href="/purchases/delete/{{id}}">Delete</a></button></td>
+      </tr>
+    </tbody>
+    {{/purchases}}
+  </table>
 </div>
-
 {{#no_purchases}}
 <p>No purchases available yet. Add some above.</p>
 {{/no_purchases}}

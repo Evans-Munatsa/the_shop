@@ -126,40 +126,6 @@ app.get('/', function(req, res) {
     res.render('home');
 })
 
-// USER router
-// var rolesMap = {
-//     "evans": "admin",
-//     "gagamel": "view"
-// }
-
-// app.use(users.checkUser)
-
-// app.post('/login', function(req, res) {
-//     
-//     req.session.user = {
-//         name: req.body.name,
-//         password: req.body.password,
-//         is_admin: rolesMap[req.body.name] === "admin"
-//     }
-//     res.redirect("/categories")
-//         // })
-// })
-
-
-// var checkUser = function(req, res, next) {
-//     console.log("checkUser");
-//     if (req.session && req.session.user) {
-//         return next();
-//     } else {
-
-//         res.redirect("/login");
-//     }
-// }
-
-
-
-
-
 
 app.get("categories/categories", users.checkUser, function(req, res) {
     res.render("categories", {
@@ -171,13 +137,12 @@ app.get('/users/signup', users.userSignup);
 app.post('/users/register', users.register);
 app.get('/users/logIn', users.logIn)
 app.post('/users/logIn', users.logIn)
-
 app.get('/logout', function(req, res) {
     delete req.session.user;
     res.redirect("/");
 })
 
-app.get('/categories', categories.show);
+app.get('/categories', users.checkUser, categories.show);
 app.get('/categories/add', users.checkUser, categories.showAdd);
 app.get('/categories/edit/:id', users.checkUser, categories.get);
 app.post('/categories/update/:id', users.checkUser, categories.update);

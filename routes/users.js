@@ -46,9 +46,10 @@ exports.register = function(req, res, next) {
             }
 
         } else {
-            var err = new Error('All fields must be filled. ')
+            if (err) return next(err)
+            // var err = new Error('All fields must be filled. ')
             req.flash("danger", "All fields must be filled")
-            err.status = 400;
+            // err.status = 400;
             return next(err)
         }
     })
@@ -56,39 +57,45 @@ exports.register = function(req, res, next) {
 
 exports.checkUser = function(req, res, next) {
     console.log("checkUser");
-    if (req.session && req.session.DB) {
+    if (req.session && req.session.user) {
         return next();
     }
     res.redirect("/users/logIn");
 };
 
+
 var rolesMap = {
-    "evans": "admin"
+    "gagamel.em@gmail.com": "admin",
+    "evansmunatsa7@gmail.com": "user"
 }
+
 
 exports.logIn = function(req, res, next) {
     req.getConnection(function(err, connection) {
         if (err) return next(err)
         var data = {
             email: req.body.email,
-            password: req.body.password,
-            is_admin: rolesMap[req.body.name] === "admin"
+            password: req.body.password
         }
 
         connection.query('SELECT * from Users WHERE email = ?', data.email, function(err, results) {
             if (err) return next(err)
-            var DB = results[0];
-            console.log(DB)
+            var user = results[0];
+            console.log(user)
 
-            if (DB === undefined) {
+            if (user === undefined) {
                 return res.redirect("/users/logIn")
 
             } else {
-                bcrypt.compare(data.password, DB.password, function(err, pass) {
+                bcrypt.compare(data.password, user.password, function(err, pass) {
                     console.log(pass)
-                    console.log("first:" + data.password, "second:" + DB.password);
+                    console.log("first:" + data.password, "second:" + user.password);
                     if (pass) {
-                        req.session.DB = data.email;
+                        req.session.user = {
+                            email: data.email,
+                            is_admin : rolesMap[req.body.email] === "admin",
+                            user : rolesMap[req.body.email] === "user"
+                        }
                         return res.redirect('/categories');
                     } else {
                         console.log('incorrect')
@@ -96,9 +103,7 @@ exports.logIn = function(req, res, next) {
 
                         // return next(err)
                     }
-
                 });
-
             }
         })
     })
