@@ -45,8 +45,8 @@ exports.register = function(req, res, next) {
 
         } else {
             if (err) return next(err)
-            req.flash("danger", "All fields must be filled")
-            res.redirect("/users/signup");
+            req.flash("danger", "All fields must be filled on the sigup form")
+            res.redirect("/");
         }
     })
 }
@@ -77,6 +77,7 @@ exports.login = function(req, res, next) {
             var user = results[0];
 
             if (user === undefined) {
+                req.flash("danger", "you must sure that you put your login details before login")
                 res.redirect("/")
 
             } else {
@@ -84,17 +85,25 @@ exports.login = function(req, res, next) {
                     if (pass) {
                         req.session.user = {
                             email: data.email,
-                            is_admin : rolesMap[req.body.email] === "admin",
-                            user : rolesMap[req.body.email] === "user"
+                            is_admin: rolesMap[req.body.email] === "admin",
+                            user: rolesMap[req.body.email] === "user"
                         }
+                        req.flash("success", 'Welcome Back', user.name);
                         res.redirect('/categories');
-                    } else {
-                        if (err) return next(err)
-            req.flash("danger", "All fields must be filled")
-            res.redirect("/users/signup");
                     }
                 });
             }
         })
     })
 }
+
+exports.delete = function(req, res, next) {
+    var id = req.params.id;
+    req.getConnection(function(err, connection) {
+        connection.query('DELETE FROM users WHERE id = ?', [id], function(err, rows) {
+            if (err) return next(err);
+            req.flash("danger", "User permanently removed")
+            res.redirect('/users');
+        });
+    });
+};

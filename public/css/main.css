@@ -211,12 +211,11 @@ table#acrylic {
             font-family: 'Roboto';
             font-size: 16px;
             font-weight: 400;
-            color: #fff;
+            color: brown;
             text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
             text-align: left;
             padding: 20px;
             background-size: 100%;
-            
             border-top: 1px solid #858d99;
         }
         

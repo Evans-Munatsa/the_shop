@@ -167,6 +167,7 @@ app.get('/sales/edit/:id', users.checkUser, sales.get);
 app.get('/sales/delete/:id', users.checkUser, sales.delete);
 
 app.get('/users', users.checkUser, users.show);
+app.get('/users/delete/:id', users.checkUser, users.delete);
 app.use(errorHandler);
 
 app.set('port', (process.env.PORT || 3000));
