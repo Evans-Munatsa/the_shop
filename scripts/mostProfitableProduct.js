@@ -27,12 +27,12 @@ exports.purchases_json = function(array) {
         }
         purchaseList.push(result);
     })
-
+    // console.log(purchaseList)
     return purchaseList;
 }
 
 exports.groupedPurchase = function(purchasesList, initialDate, lastDate) {
-console.log(purchaseList);
+// console.log(purchasesList);
     var getWeek = {};
 
     var startDate = new Date(initialDate);
@@ -46,8 +46,10 @@ console.log(purchaseList);
                 getWeek[purchasesList[i].Item] = 0;
             }
             getWeek[purchasesList[i].Item] += purchasesList[i].TotalCost;
+            console.log(getWeek[purchasesList[i].Item])
         }
     }
+    // console.log(getWeek)
     return getWeek;
 }
 

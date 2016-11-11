@@ -25,7 +25,6 @@ exports.userSignup = function(req, res) {
 exports.register = function(req, res, next) {
     req.getConnection(function(err, connection) {
         if (req.body.name && req.body.email && req.body.password) {
-            // if user puts correct info the get save to database
             var newUser = {
                 name: req.body.name,
                 email: req.body.email,
@@ -33,7 +32,6 @@ exports.register = function(req, res, next) {
             };
 
             if (req.body.password) {
-                // using bycrypt to store hashed passwords
                 var passwordStore = bcrypt.hash(newUser.password, saltRounds, function(err, hash) {
                     newUser.password = hash
                     connection.query('insert into Users set ?', newUser, function(err, results) {
@@ -47,20 +45,17 @@ exports.register = function(req, res, next) {
 
         } else {
             if (err) return next(err)
-            // var err = new Error('All fields must be filled. ')
             req.flash("danger", "All fields must be filled")
-            // err.status = 400;
-            return next(err)
+            res.redirect("/users/signup");
         }
     })
 }
 
 exports.checkUser = function(req, res, next) {
-    console.log("checkUser");
     if (req.session && req.session.user) {
         return next();
     }
-    res.redirect("/users/logIn");
+    res.redirect("/");
 };
 
 
@@ -69,8 +64,7 @@ var rolesMap = {
     "evansmunatsa7@gmail.com": "user"
 }
 
-
-exports.logIn = function(req, res, next) {
+exports.login = function(req, res, next) {
     req.getConnection(function(err, connection) {
         if (err) return next(err)
         var data = {
@@ -81,27 +75,23 @@ exports.logIn = function(req, res, next) {
         connection.query('SELECT * from Users WHERE email = ?', data.email, function(err, results) {
             if (err) return next(err)
             var user = results[0];
-            console.log(user)
 
             if (user === undefined) {
-                return res.redirect("/users/logIn")
+                res.redirect("/")
 
             } else {
                 bcrypt.compare(data.password, user.password, function(err, pass) {
-                    console.log(pass)
-                    console.log("first:" + data.password, "second:" + user.password);
                     if (pass) {
                         req.session.user = {
                             email: data.email,
                             is_admin : rolesMap[req.body.email] === "admin",
                             user : rolesMap[req.body.email] === "user"
                         }
-                        return res.redirect('/categories');
+                        res.redirect('/categories');
                     } else {
-                        console.log('incorrect')
-                        return res.redirect('/users/logIn');
-
-                        // return next(err)
+                        if (err) return next(err)
+            req.flash("danger", "All fields must be filled")
+            res.redirect("/users/signup");
                     }
                 });
             }

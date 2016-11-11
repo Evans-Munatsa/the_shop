@@ -19,7 +19,6 @@ var fs = require('fs'),
     bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-
 weeklySales = require('./scripts/products'),
     category = require('./scripts/categories_totals'),
     profitProduct = require('./scripts/mostProfitableProduct'),
@@ -63,8 +62,6 @@ app.use(session({
 
 app.use(flash());
 
-
-
 app.use(express.static(path.join(__dirname, "public")));
 
 //setup middleware
@@ -74,7 +71,6 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(bodyParser.json())
-    // app.use(checkUser())
 
 function errorHandler(err, req, res, next) {
     res.status(500);
@@ -135,8 +131,8 @@ app.get("categories/categories", users.checkUser, function(req, res) {
 
 app.get('/users/signup', users.userSignup);
 app.post('/users/register', users.register);
-app.get('/users/logIn', users.logIn)
-app.post('/users/logIn', users.logIn)
+app.get('/users/login', users.login)
+app.post('/users/login', users.login)
 app.get('/logout', function(req, res) {
     delete req.session.user;
     res.redirect("/");
