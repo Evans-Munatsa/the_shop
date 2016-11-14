@@ -1,7 +1,4 @@
-@import 'bootstrap-custom';
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "compass/css3";
+
 /*forms*/
 body {
     background-color: antiquewhite;
