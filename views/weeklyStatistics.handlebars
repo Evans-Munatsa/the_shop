@@ -1,67 +1,56 @@
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h1 class="panel-title">Weekly Statistics</h1>
-  </div>
-  <div class="panel-body">
-    <div class="table-responsive panel panel-warning">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Most Popular</th>
-            <th>least Popular</th>
-            <th>Most popular cat</th>
-            <th>Least popular cat</th>
-            <th>Most Profitable pro</th>
-            <th>Most profitable cat</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <tr>
-            {{#each mostPop}}
-              <td>
-                <p>Item: {{item}}</p>
-                <p>Amount: R{{amount}}</p>
-              </td>
-              {{/each}}
-
-              {{#each leastPop}}
-              <td>
-                <p>Item: {{item}}</p>
-                <p>Amount: R{{amount}}</p>
-              </td>
-              {{/each}}
-
-              {{#each mostPopCat}}
-              <td>
-                <p>Category: {{category}}</p>
-                <p>Amount: R{{amount}}</p>
-              </td>
-              {{/each}}
-
-              {{#each leastPopCat}}
-              <td>
-                <p>Category: {{category}}</p>
-                <p>Amount: R{{amount}}</p>
-              </td>
-              {{/each}}
-
-              {{#each mostProfProd}}
-              <td>
-                <p>Item: {{item}}</p>
-                <p>Amount: R{{profitCash}}</p>
-              </td>
-              {{/each}}
-
-               {{#each mostProfCat}}
-              <td>
-                <p>Category: {{category}}</p>
-                <p>Amount: R{{profitCash}}</p>
-              </td>
-              {{/each}}
-             </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div class="wrapper">
+  <h1>Statistics</h1>
+  <table id="acrylic">
+    <thead>
+      <tr>
+        <th>Most Popular</th>
+        <th>least Popular</th>
+        <th>Most popular cat</th>
+        <th>Least popular cat</th>
+        <th>Most Profitable pro</th>
+        <th>Most profitable cat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <tr>
+          {{#each mostPop}}
+          <td>
+            <p>Item: {{item}}</p>
+            <p>Amount: R{{amount}}</p>
+          </td>
+          {{/each}}
+          {{#each leastPop}}
+          <td>
+            <p>Item: {{item}}</p>
+            <p>Amount: R{{amount}}</p>
+          </td>
+          {{/each}}
+          {{#each mostPopCat}}
+          <td>
+            <p>Category: {{category}}</p>
+            <p>Amount: R{{amount}}</p>
+          </td>
+          {{/each}}
+          {{#each leastPopCat}}
+          <td>
+            <p>Category: {{category}}</p>
+            <p>Amount: R{{amount}}</p>
+          </td>
+          {{/each}}
+          {{#each mostProfProd}}
+          <td>
+            <p>Item: {{item}}</p>
+            <p>Amount: R{{profitCash}}</p>
+          </td>
+          {{/each}}
+          {{#each mostProfCat}}
+          <td>
+            <p>Category: {{category}}</p>
+            <p>Amount: R{{profitCash}}</p>
+          </td>
+          {{/each}}
+        </tr>
+      </tbody>
+    </table>
   </div>
