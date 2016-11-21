@@ -2,7 +2,41 @@ var session = require('express-session');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+exports.checkUser = function(req, res, next) {
+    if (req.session && req.session.user) {
+        console.log(req.session.user)
+        return next();
+    }else {
+        req.flash("danger", "you must sure that you put your login details before login")
+        res.redirect("/");
+    }
+};
 
+exports.admin = function(req, res, next){
+    if (req.session.user.admin) {
+        console.log(req.session.admin)
+        next();
+    }else {
+        req.flash("danger", "Are you Loco")
+        res.redirect('/categories');
+    }
+};
+
+module.exports.setupUserDetails = function(req, res, next){
+  if (req.session){
+
+    if (req.session.user){
+      res.locals.user = req.session.user;
+    }
+
+    if (req.session.role){
+      res.locals.admin = rolesMap[req.body.email] === "admin";
+    }
+  }
+
+  next();
+
+}
 
 exports.show = function(req, res, next) {
     req.getConnection(function(err, connection) {
@@ -12,6 +46,8 @@ exports.show = function(req, res, next) {
             res.render('users/users', {
                 no_users: results.length === 0,
                 users: results,
+                user : req.session.user
+
             });
         });
     });
@@ -51,13 +87,6 @@ exports.register = function(req, res, next) {
     })
 }
 
-exports.checkUser = function(req, res, next) {
-    if (req.session && req.session.user) {
-        return next();
-    }
-    res.redirect("/");
-};
-
 
 var rolesMap = {
     "gagamel.em@gmail.com": "admin",
@@ -85,7 +114,7 @@ exports.login = function(req, res, next) {
                     if (pass) {
                         req.session.user = {
                             email: data.email,
-                            is_admin: rolesMap[req.body.email] === "admin",
+                            admin: rolesMap[req.body.email] === "admin",
                             user: rolesMap[req.body.email] === "user"
                         }
                         req.flash("success", 'Welcome Back', user.name);

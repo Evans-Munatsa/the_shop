@@ -29,9 +29,11 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="/categories">Categories</a></li>
 						<li><a href="/products">Products</a></li>
+						{{#if user.admin}}
 						<li><a href="/purchases">Purchases</a></li>
 						<li><a href="/sales">Sales</a></li>
 						<li><a href="/users">Users</a></li>
+						{{/if}}
 						
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Statistics <span class="caret"></span></a>
@@ -42,10 +44,13 @@
 								<li><a href="/sale/week4">week 4</a></li>
 							</ul>
 						</li>
+						{{#if user}}
 						<li><a href="/logout">Logout</a></li>
+						{{/if}}
 					</ul>
 					</div><!--/.nav-collapse -->
 				</div>
+				
 			</nav>
 			
 			<div class='container'>
