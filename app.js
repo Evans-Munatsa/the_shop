@@ -79,7 +79,6 @@ function errorHandler(err, req, res, next) {
     });
 }
 
-
 function sale(salasCSV) {
     var leastPopularProduct = require('./scripts/least');
     var mostPopularProduct = require('./scripts/most');
@@ -139,35 +138,35 @@ app.get('/logout', function(req, res) {
 })
 
 app.get('/categories', users.checkUser, categories.show);
-app.get('/categories/add', users.checkUser, categories.showAdd);
-app.get('/categories/edit/:id', users.checkUser, categories.get);
-app.post('/categories/update/:id', users.checkUser, categories.update);
-app.post('/categories/add', users.checkUser, categories.add);
-app.get('/categories/delete/:id', users.checkUser, categories.delete);
+app.get('/categories/add', users.checkUser, users.admin, categories.showAdd);
+app.get('/categories/edit/:id', users.checkUser, users.admin, categories.get);
+app.post('/categories/update/:id', users.checkUser, users.admin, categories.update);
+app.post('/categories/add', users.checkUser, users.admin, categories.add);
+app.get('/categories/delete/:id', users.checkUser, users.admin, categories.delete);
 
 app.get('/products', users.checkUser, products.show);
-app.get('/products/edit/:id', users.checkUser, products.get);
-app.post('/products/update/:id', users.checkUser, products.update);
-app.get('/products/add', users.checkUser, products.showAdd);
-app.post('/products/add', users.checkUser, products.add)
-app.get('/products/delete/:id', users.checkUser, products.delete);
+app.get('/products/edit/:id', users.checkUser, users.admin, products.get);
+app.post('/products/update/:id', users.checkUser, users.admin, products.update);
+app.get('/products/add', users.checkUser, users.admin, products.showAdd);
+app.post('/products/add', users.checkUser, users.admin, products.add)
+app.get('/products/delete/:id', users.checkUser, users.admin, products.delete);
 
-app.get('/purchases', users.checkUser, purchases.show);
-app.post('/purchases/update/:id', users.checkUser, purchases.update);
-app.get('/purchases/edit/:id', users.checkUser, purchases.get);
-app.get('/purchases/add', users.checkUser, purchases.showAdd);
-app.post('/purchases/add', users.checkUser, purchases.add)
-app.get('/purchases/delete/:id', users.checkUser, purchases.delete);
+app.get('/purchases', users.checkUser, users.admin, purchases.show);
+app.post('/purchases/update/:id', users.checkUser, users.admin, purchases.update);
+app.get('/purchases/edit/:id', users.checkUser, users.admin, purchases.get);
+app.get('/purchases/add', users.checkUser, users.admin, purchases.showAdd);
+app.post('/purchases/add', users.checkUser, users.admin, purchases.add)
+app.get('/purchases/delete/:id', users.checkUser, users.admin, purchases.delete);
 
-app.get('/sales', users.checkUser, sales.show)
-app.get('/sales/add', users.checkUser, sales.showAdd);
-app.post('/sales/add', users.checkUser, sales.add)
-app.post('/sales/update/:id', users.checkUser, sales.update);
-app.get('/sales/edit/:id', users.checkUser, sales.get);
-app.get('/sales/delete/:id', users.checkUser, sales.delete);
+app.get('/sales', users.checkUser, users.admin, sales.show)
+app.get('/sales/add', users.checkUser, users.admin, sales.showAdd);
+app.post('/sales/add', users.checkUser, users.admin, sales.add)
+app.post('/sales/update/:id', users.checkUser, users.admin, sales.update);
+app.get('/sales/edit/:id', users.checkUser, users.admin, sales.get);
+app.get('/sales/delete/:id', users.checkUser, users.admin, sales.delete);
 
-app.get('/users', users.checkUser, users.show);
-app.get('/users/delete/:id', users.checkUser, users.delete);
+app.get('/users', users.checkUser, users.admin, users.show);
+app.get('/users/delete/:id', users.checkUser, users.admin, users.delete);
 app.use(errorHandler);
 
 app.set('port', (process.env.PORT || 3000));

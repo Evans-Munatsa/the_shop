@@ -6,6 +6,8 @@ exports.show = function (req, res, next) {
             res.render( 'sales/sales', {
                     no_sales : results.length === 0,
                     sales : results,
+                    user : req.session.user
+
             });
         });
     });
@@ -19,6 +21,8 @@ exports.showAdd = function(req, res) {
             if (err) return next(err);
             res.render('sales/add', {
                 products: products,
+                user : req.session.user
+
             });
         });
     });

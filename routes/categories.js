@@ -6,6 +6,8 @@ exports.show = function(req, res, next) {
             res.render('categories/categories', {
                 no_products: results.length === 0,
                 categories: results,
+                user : req.session.user
+
             });
         });
     });
