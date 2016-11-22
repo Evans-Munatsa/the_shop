@@ -1,24 +1,27 @@
 <h1>Categories</h1>
-<button class="btn btn-info" type="submit"><a href="/categories/add">Add</a></button>
-<hr>
-<div class="row">
-{{#categories}}
-	<div class="col-sm-6 col-md-4">
-		<div class="thumbnail">
-			<a href="/products" ><h4>{{description}}</h4></a>
-			<div class="caption">
-				<button class="btn btn-info btn-sm" type="submit"><a href="/categories/edit/{{id}}" >Edit</a></button>
+<div class="wrapper">
+	<button class="btn btn-info" type="submit"><a href="/categories/add">Add</a></button>
+	<input type="search" class="light-table-filter form-control" data-table="order-table" placeholder="Filter">
+	<table id="acrylic" class="order-table table">
+		<thead>
+			<tr>
+				<th>description</th>
+				<th></th>
+			</tr>
+		</thead>
+		{{#categories}}
+		<tbody>
+			<tr>
+				<td data-label="Description">{{description}}</td>
+				<td data-label="">
+					<button class="btn btn-info btn-sm" type="submit"><a href="/categories/edit/{{id}}" >Edit</a></button>
 				<button class="btn btn-danger btn-sm" type="submit"><a href="/categories/delete/{{id}}">Delete</a></button>
-			</div>
-		</div>
-	</div>
-{{/categories}}
+			</td>
+			</tr>
+		</tbody>
+		{{/categories}}
+	</table>
 </div>
-
-<div>
-	{{#no_products}}
-	<p>No products available yet. Add some above.</p>
-	{{/no_products}}
-</div>
-
-
+{{#no_products}}
+<p>No products available yet. Add some above.</p>
+{{/no_products}}

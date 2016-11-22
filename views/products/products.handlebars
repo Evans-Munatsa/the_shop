@@ -1,22 +1,25 @@
 <h1>Products</h1>
-<button class="btn btn-info" type="submit"><a href="/products/add">Add</a></button>
-<hr>
-<div class="row">
-	{{#products}}
-	<div class="col-sm-6 col-md-4">
-		<div class="thumbnail">
-			<h4>{{description}}</h4>
-			<div class="caption">
-				<button class="btn btn-info btn-sm" type="submit"><a href="/products/edit/{{id}}" >Edit</a></button>
-				<button class="btn btn-danger btn-sm" type="submit"><a href="/products/delete/{{id}}">Delete</a></button>
-			</div>
-		</div>
-	</div>
-	{{/products}}
+<div class="wrapper">
+	<button class="btn btn-info" type="submit"><a href="/products/add">Add</a></button>
+	<input type="search" class="light-table-filter form-control" data-table="order-table" placeholder="Filter">
+	<table id="acrylic" class="order-table table">
+		<thead>
+			<tr>
+				<th>description</th>
+				<th></th>
+			</tr>
+		</thead>
+		{{#products}}
+		<tbody>
+			<tr>
+				<td data-label="Description">{{description}}</td>
+				<td data-label=""><button class="btn btn-info btn-sm" type="submit"><a href="/products/edit/{{id}}" >Edit</a></button>
+				<button class="btn btn-danger btn-sm" type="submit"><a href="/products/delete/{{id}}">Delete</a></button></td>
+			</tr>
+		</tbody>
+		{{/products}}
+	</table>
 </div>
-
-
-
 {{#no_products}}
 <p>No products available yet. Add some above.</p>
 {{/no_products}}
