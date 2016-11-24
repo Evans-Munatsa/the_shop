@@ -57,7 +57,8 @@ exports.get = function(req, res, next){
 				});
 				res.render('products/edit', {
 					categories : categories,
-					data : product
+					data : product,
+					user: req.session.user
 				});
 			});
 		});
