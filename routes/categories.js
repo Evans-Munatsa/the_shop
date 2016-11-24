@@ -6,7 +6,8 @@ exports.show = function(req, res, next) {
             res.render('categories/categories', {
                 no_products: results.length === 0,
                 categories: results,
-                user : req.session.user
+                user : req.session.user,
+                admin : req.session.user.admin
 
             });
         });
@@ -14,7 +15,9 @@ exports.show = function(req, res, next) {
 };
 
 exports.showAdd = function(req, res) {
-    res.render('categories/add_category');
+    res.render('categories/add_category', {
+        admin : req.session.user.admin
+    });
 }
 
 exports.add = function(req, res, next) {
@@ -23,6 +26,7 @@ exports.add = function(req, res, next) {
         var input = req.body;
         var data = {
             description: input.description,
+            admin : req.session.user.admin
         };
 
         connection.query('insert into Categories set ?', data, function(err, results) {
@@ -42,7 +46,8 @@ exports.get = function(req, res, next) {
             if (err) return next(err);
             res.render('categories/edit_category', {
                 page_title: "Edit Customers - Node.js",
-                data: rows[0]
+                data: rows[0],
+                user: req.session.user
             });
         });
     });

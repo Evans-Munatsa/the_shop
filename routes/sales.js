@@ -61,7 +61,8 @@ exports.get = function(req, res, next){
                 });
                 res.render('sales/edit', {
                     products : products,
-                    data : product
+                    data : product,
+                    user: req.session.user
                 });
             });
         });

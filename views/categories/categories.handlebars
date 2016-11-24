@@ -14,9 +14,11 @@
 			<tr>
 				<td data-label="Description">{{description}}</td>
 				<td data-label="">
+					{{#if ../user.admin}}
 					<button class="btn btn-info btn-sm" type="submit"><a href="/categories/edit/{{id}}" >Edit</a></button>
-				<button class="btn btn-danger btn-sm" type="submit"><a href="/categories/delete/{{id}}">Delete</a></button>
-			</td>
+					<button class="btn btn-danger btn-sm" type="submit"><a href="/categories/delete/{{id}}">Delete</a></button>
+					{{/if}}
+				</td>
 			</tr>
 		</tbody>
 		{{/categories}}
